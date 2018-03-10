@@ -10,8 +10,19 @@ Update:
 ```npm install -g truffle```
 
 
-## how to install and run
+## how to install
 
+1. `git clone github.com/ericchenmelt/StudentCoinhack`
+
+1. `cd StudentCoinhack`
+
+1. `npm install -g truffle`
+
+1. `npm install -g yarn`
+
+1. `yarn install`
+
+## how to build
 
 3. Run the development console.
     ```javascript
@@ -24,31 +35,11 @@ Update:
     migrate
     ```
 
-5. Run the webpack server for front-end hot reloading (outside the development console). Smart contract changes must be manually recompiled and migrated.
-    ```javascript
-    // Serves the front-end on http://localhost:3000
-    npm run start
-    ```
+## how to run 
 
-6. Truffle can run tests written in Solidity or JavaScript against your smart contracts. Note the command varies slightly if you're in or outside of the development console.
-    ```javascript
-    // If inside the development console.
-    test
+1. `yarn start`
 
-    // If outside the development console..
-    truffle test
-    ```
-
-7. Jest is included for testing React components. Compile your contracts before running Jest, or you may receive some file not found errors.
-    ```javascript
-    // Run Jest outside of the development console for front-end component tests.
-    npm run test
-    ```
-
-8. To build the application for production, use the build command. A production build will be in the build_webpack folder.
-    ```javascript
-    npm run build
-    ```
+`go to localhost:3000`
 
 ## route ideas: 
 ```
