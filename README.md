@@ -33,6 +33,7 @@ Update:
     ```javascript
     compile
     migrate
+    deploy
     ```
 
 ## how to run 
