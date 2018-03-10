@@ -49,3 +49,17 @@ Update:
     ```javascript
     npm run build
     ```
+
+## route ideas: 
+```
+/ => landing
+
+/student/profile
+/student/signup
+/student/wallet
+/student/myfunders
+/student/transactions
+
+/funder/signup
+/funder/home
+```
