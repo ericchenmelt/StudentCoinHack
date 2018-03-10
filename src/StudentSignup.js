@@ -2,8 +2,6 @@
 import React, { Component } from 'react'
 import { Button, Checkbox, Form } from 'semantic-ui-react'
 
-
-
 const StudentForm = () => (
    <Form>
     <Form.Field>
