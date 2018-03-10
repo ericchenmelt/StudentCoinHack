@@ -2,22 +2,13 @@ import React, { Component } from 'react'
 import SimpleStorageContract from '../build/contracts/SimpleStorage.json'
 import getWeb3 from './utils/getWeb3'
 
-import './css/oswald.css'
-import './css/open-sans.css'
-import './css/pure-min.css'
-import './App.css'
-
 class App extends Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      storageValue: 0,
-      web3: null
-    }
+  state = {
+    storageValue: 0,
+    web3: null
   }
 
-  componentWillMount() {
+  async componentWillMount() {
     // Get network provider and web3 instance.
     // See utils/getWeb3 for more info.
 
@@ -91,4 +82,4 @@ class App extends Component {
   }
 }
 
-export default App
+export default App;
