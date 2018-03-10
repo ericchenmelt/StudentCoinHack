@@ -2,4 +2,6 @@
 A student loan network on the ethereum blockchain
 
 ## Truffle
-```npm install -g truffle```
+Update:
+```npm uninstall -g truffle
+npm install -g truffle```
