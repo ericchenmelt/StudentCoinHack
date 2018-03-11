@@ -12,7 +12,7 @@ const StyledFunder = styled.div`
    min-height: 100vh;
    width:100%;
 
-   div.ui.text.container {
+   div.ui.container {
     padding-top: 2%;
    }
 
@@ -115,11 +115,8 @@ class FunderHome extends Component {
     
     return (
       <StyledFunder>
-      
-        
-        <Container text>
-          
-            <Header as ='h1'>Find Students</Header>
+        <Container>
+          <Header as ='h1'>Find Students</Header>
 
            <Segment.Group horizontal>
             <Segment>
@@ -131,39 +128,32 @@ class FunderHome extends Component {
               <Input icon='search' placeholder='Search...' onChange={(e) => this.setState({countryFilter: e.target.value}) }/>
             </Segment>
           </Segment.Group>
+            <StyledCardGroup>
+            { filteredStudents.map(student => 
+               <Card key={student.idx}>
+                
+                    <Card.Content>
+                      <Image floated='right' size='mini' src='#' />
+                      <Card.Header>
+                        {student.name}
+                      </Card.Header>
+                    
+                      <Card.Description>
 
-            
+                        <p>Going to {student.uni}</p>
+                        <p>From {student.country}</p>
 
-            { filteredStudents.map(student => <div key={student.idx}>              
-                  <StyledCardGroup>
-                    <Card>
-                        <Card.Content>
-                          <Image floated='right' size='mini' src='#' />
-                          <Card.Header>
-                            {student.name}
-                          </Card.Header>
-                        
-                          <Card.Description>
+                       </Card.Description>
 
-                            <p>Going to {student.uni}</p>
-                            <p>From {student.country}</p>
-
-                           </Card.Description>
-
-                        </Card.Content>
-                        <Card.Content extra>
-                            <Button basic color='green' data-idx={student.idx} onClick={(e) => { this.setState({modalOpen: true, selectedStudentIdx: e.target.dataset.idx }) } }>Fund This Student</Button>
-                        </Card.Content>
-                    </Card>
-                  </StyledCardGroup>
-              </div>)
-            }
-
-           
-        
+                    </Card.Content>
+                    <Card.Content extra>
+                        <Button basic color='green' data-idx={student.idx} onClick={(e) => { this.setState({modalOpen: true, selectedStudentIdx: e.target.dataset.idx }) } }>Fund This Student</Button>
+                    </Card.Content>
+                </Card>
+              
+            )}
+            </StyledCardGroup>        
           </Container>
-
-      
         <Modal open={this.state.modalOpen} size='small'>
           <Header content='Fund Bob' />
           <Modal.Content>
@@ -178,9 +168,7 @@ class FunderHome extends Component {
               <Button color='green' size='huge' type='submit'>Fund</Button>
             </Form>
           </Modal.Content>
-        </Modal>
-
-  
+        </Modal>  
       </StyledFunder>
 
     )
