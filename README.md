@@ -66,3 +66,41 @@ truffle develop
 > Accounts.deployed().then(function(instance){return instance.incrementStudent("hello world");}).then(console.log);
 > Accounts.deployed().then(function(instance){return instance.getStudentCount();}).then(console.log);
 ```
+
+## how to test deposit
+Make sure account1 has sufficient funds in MetaMask. 
+
+```
+truffle compile
+
+truffle migrate --reset
+
+var accounts;
+
+web3.eth.getAccounts(function(err,res) { accounts = res; });
+
+var account1 = accounts[0]; // first account
+
+var account2 = accounts[1]; // second account, if exists
+
+console.log(account1);
+
+Accounts.deployed().then(function(instance){return instance.addStudent("Martin Shrekli", "Columbia", "Phrma bro", {from: account2});}).then(console.log);
+
+Accounts.deployed().then(function(instance){return instance.addLender("Raphael", {from: account1});}).then(console.log);
+
+Accounts.deployed().then(function(instance){return instance.startFundraising(100000, {from: account2});}).then(console.log);
+
+Accounts.deployed().then(function(instance){return instance.getLenderBalanceIdx(0, {from: account1});}).then(console.log);
+
+Accounts.deployed().then(function(instance){return instance.getStudentRaisedIdx(0, {from: account2});}).then(console.log);
+
+Accounts.deployed().then(function(instance){return instance.fund(0, {from: account1, value: 400, gas:900000});}).then(console.log);
+
+Accounts.deployed().then(function(instance){return instance.getStudentRaisedIdx(0, {from: account2});}).then(console.log);
+
+web3.fromWei(web3.eth.getBalance(account1));
+web3.fromWei(web3.eth.getBalance(account2));
+
+Accounts.deployed().then(function(instance){return instance.getContractBalance()}).then(console.log);
+```
