@@ -4,7 +4,7 @@ import { Button, Container, Header, Checkbox, Form } from 'semantic-ui-react'
 import styled from 'styled-components';
 
 
-const FunderForm = styled.div`
+const StyledFunderForm = styled.div`
   background: rgb(237, 248, 252);
   background-size: cover;
   height: 100%;
@@ -15,7 +15,6 @@ const FunderForm = styled.div`
     padding-top: 10%;
   }
 
-
   @media only screen and (min-width: 768px) {
     h1.ui.header {
       font-size: 4rem;
@@ -25,7 +24,7 @@ const FunderForm = styled.div`
 `;
 
 
-const StyledForm = () => <FunderForm>
+const FunderForm = () => <StyledFunderForm>
 
   <Container text>
     <Header as='h1'>Create a Funder Account</Header>
@@ -50,6 +49,6 @@ const StyledForm = () => <FunderForm>
 
   </Container>
 
-</FunderForm>
+</StyledFunderForm>
 
 export default FunderForm
