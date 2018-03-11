@@ -87,7 +87,7 @@ class FunderHome extends Component {
           this.getStudentCountry(idx, {from: nextProps.accounts[0] })
         ]);
         const newStudent = { name, country, uni, idx }
-        students.push(newStudent)
+        students.push(newStudent) 
         resolve(idx + 1);
       });
     }
@@ -96,11 +96,11 @@ class FunderHome extends Component {
   }
 
   handleSubmit = async () => {
-    const { AccountsInstance, accounts, history } = this.props;
+    const { web3, AccountsInstance, accounts, history } = this.props;
   
     try {
-      let idx = 0;
-      const result = await AccountsInstance.fund(this.state.selectedStudentIdx, {from: accounts[0], value: this.state.amount });  
+      const amountWei = web3.toWei(this.state.amount, 'ether')
+      const result = await AccountsInstance.fund(this.state.selectedStudentIdx, {from: accounts[0], value: amountWei, gas:900000 });  
       console.log(result)
       this.setState({modalOpen: false})
     } catch (e) {

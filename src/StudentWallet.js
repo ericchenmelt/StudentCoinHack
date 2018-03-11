@@ -49,7 +49,8 @@ class StudentWallet extends Component {
     if (nextProps.AccountsInstance) {
       const idx = await nextProps.AccountsInstance.getStudentIdxByAddress();
       const [ minReq, raised, numFunders, fundraisingStatus ] = await Promise.all([ this.getMinReq(idx), this.getRaised(idx), this.getNumFunders(idx), this.getFundraisingStatus(idx) ]);
-      this.setState({ minReq: minReq.c[0], raised: raised.c[0], numFunders: numFunders.c[0], fundraisingStatus })
+      this.setState({ minReq: (minReq.c[0]/10000), raised: (raised.c[0] / 10000), numFunders: numFunders.c[0], fundraisingStatus })
+      console.log(raised)
     }
   }
 
@@ -60,10 +61,11 @@ class StudentWallet extends Component {
   }
 
   handleSubmit = async () => {
-    const { AccountsInstance, accounts, history } = this.props;
+    const { AccountsInstance, accounts, history, web3 } = this.props;
   
     try {
-      const result = await AccountsInstance.startFundraising(this.state.newGoal, {from: accounts[0], gas: 6385876 });  
+      const amountWei = web3.toWei(this.state.newGoal, 'ether')
+      const result = await AccountsInstance.startFundraising(amountWei, {from: accounts[0], gas: 6385876 });  
       console.log(result)
       this.setState({modalOpen: false})
       this.componentWillReceiveProps(this.props)
@@ -84,19 +86,19 @@ class StudentWallet extends Component {
 	        <Header as='h1'>My Wallet</Header>
 
             
-	        {!this.state.fundraisingStatus && this.state.raised && <p>funding is complete!</p> }
-            {this.state.fundraisingStatus && <p>Funding in Progress!</p> }
+	        <p>funding is complete!</p>
+            <p>Funding in Progress!</p> 
     
              <div>
                <Progress percent={percent} />
              </div>
 
-	        {this.state.minReq || this.state.raised && <div>
+	        <div>
 
 	      		<Segment.Group horizontal>
 	               <Segment textAlign='center'>
 				       <Statistic>
-					    <Statistic.Value>{this.state.minReq}</Statistic.Value>
+					    <Statistic.Value>{this.state.minReq} ETH</Statistic.Value>
 					    <Statistic.Label>Your Goal</Statistic.Label>
 					   </Statistic>
 					</Segment>
@@ -104,7 +106,7 @@ class StudentWallet extends Component {
 
 	         <Segment textAlign='center'>
 					   <Statistic>
-					    <Statistic.Value>{this.state.raised}</Statistic.Value>
+					    <Statistic.Value>{this.state.raised} ETH</Statistic.Value>
 					    <Statistic.Label>Raised</Statistic.Label>
 					   </Statistic>
 					</Segment>
@@ -117,10 +119,10 @@ class StudentWallet extends Component {
 				  
 			  	</Segment.Group> 
 			</div> 
-		   }
+		   
 	    
 	     
-        {!this.state.fundraisingStatus &&
+        
           <Modal trigger={
             <Button>Start Fundraising</Button>
           }>
@@ -142,7 +144,7 @@ class StudentWallet extends Component {
               </Modal.Description>
             </Modal.Content>
           </Modal>
-        }
+        
 
       </Container>
       </StyledWallet>
