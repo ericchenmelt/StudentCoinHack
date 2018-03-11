@@ -18,6 +18,7 @@ const StyledFunderForm = styled.div`
   @media only screen and (min-width: 768px) {
     h1.ui.header {
       font-size: 4rem;
+      font-weight:400;
     }
   }
 
