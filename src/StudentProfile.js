@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import { Header, Container, Button, Checkbox, Form } from 'semantic-ui-react'
+import { Header, Container, Button, Image, Checkbox, Form } from 'semantic-ui-react'
 import styled from 'styled-components';
 
 const StyledProfile = styled.div`
@@ -59,7 +59,7 @@ class StudentProfile extends Component {
         <Container text>
           <Header as='h1'>Profile</Header>
           <Header as='h3'>Name: {name}</Header>
-          <img src={photourl} alt="Profile Pic"  height="300" width="400"/>
+          <Image alt="Profile Pic" src={photourl} size='medium' />
           <p>University: {uni}</p>
           <p>Country: {country}</p>
         </Container>
