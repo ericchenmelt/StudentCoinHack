@@ -143,7 +143,7 @@ class StudentWallet extends Component {
             </div>
           </div> : "" }
           { this.state.status != "inProgress" ? <Modal trigger={
-            <Button>Start Fundraising</Button>
+            <Button color='green'>Start Fundraising</Button>
           }>
             <Modal.Header>New Fundraising</Modal.Header>
             <Modal.Content>
@@ -174,7 +174,7 @@ class StudentWallet extends Component {
                    <label>What for?</label>
                    <Input placeholder='Food' />
                  </Form.Field>
-                 <Button>Submit</Button>
+                 <Button color='green'>Submit</Button>
                </Form>
               </div>
           : ""}
