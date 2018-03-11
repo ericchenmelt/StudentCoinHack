@@ -62,6 +62,7 @@ class StudentWallet extends Component {
   
     try {
       const result = await AccountsInstance.startFundraising(this.state.newGoal, {from: accounts[0], gas: 6385876 });  
+      console.log(result)
       this.setState({modalOpen: false})
       this.componentWillReceiveProps(this.props)
     } catch (e) {
@@ -79,16 +80,15 @@ class StudentWallet extends Component {
       <Container text>
 
 	        <Header as='h1'>My Wallet</Header>
+	        {/*<p>raised: {this.state.raised}</p>
+	        <p>minReq: {this.state.minReq}</p>*/}
             
             
 	        {!this.state.fundraisingStatus && this.state.raised && <p>funding is complete!</p> }
             {this.state.fundraisingStatus && <p>Funding in Progress!</p> }
-	        
-
-	        {!this.state.fundraisingStatus && this.state.minReq && <div>
+	        <div>
 
 	        	<Progress percent={percent} />
-
 
 	      		<Segment.Group horizontal>
 	               <Segment textAlign='center'>
@@ -107,7 +107,7 @@ class StudentWallet extends Component {
 					</Segment>
 				  
 			  	</Segment.Group> 
-			</div> }
+			</div> 
 	    
 	     
         {!this.state.fundraisingStatus &&
@@ -117,7 +117,7 @@ class StudentWallet extends Component {
             <Modal.Header>New Fundraising</Modal.Header>
             <Modal.Content>
               <Modal.Description>
-                <Form>
+                <Form onSubmit={this.handleSubmit}>
                   <Form.Field>
                     <label>Goal amount</label>
                     <input placeholder='1000 ETH' />
