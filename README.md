@@ -10,8 +10,19 @@ Update:
 ```npm install -g truffle```
 
 
-## how to install and run
+## how to install
 
+1. `git clone github.com/ericchenmelt/StudentCoinhack`
+
+1. `cd StudentCoinhack`
+
+1. `npm install -g truffle`
+
+1. `npm install -g yarn`
+
+1. `yarn install`
+
+## how to build
 
 3. Run the development console.
     ```javascript
@@ -22,30 +33,100 @@ Update:
     ```javascript
     compile
     migrate
+    deploy
     ```
 
-5. Run the webpack server for front-end hot reloading (outside the development console). Smart contract changes must be manually recompiled and migrated.
-    ```javascript
-    // Serves the front-end on http://localhost:3000
-    npm run start
-    ```
+## how to run 
 
-6. Truffle can run tests written in Solidity or JavaScript against your smart contracts. Note the command varies slightly if you're in or outside of the development console.
-    ```javascript
-    // If inside the development console.
-    test
+1. `yarn start`
 
-    // If outside the development console..
-    truffle test
-    ```
+`go to localhost:3000`
 
-7. Jest is included for testing React components. Compile your contracts before running Jest, or you may receive some file not found errors.
-    ```javascript
-    // Run Jest outside of the development console for front-end component tests.
-    npm run test
-    ```
+## route ideas: 
+```
+/ => landing
 
-8. To build the application for production, use the build command. A production build will be in the build_webpack folder.
-    ```javascript
-    npm run build
-    ```
+/student/profile
+/student/signup
+/student/wallet
+/student/myfunders
+/student/transactions
+
+/funder/signup
+/funder/home
+```
+
+## how to not die:
+
+```
+truffle develop
+
+> compile 
+> migrate --reset 
+> Accounts.deployed().then(function(instance){return instance.incrementStudent("hello world");}).then(console.log);
+> Accounts.deployed().then(function(instance){return instance.getStudentCount();}).then(console.log);
+```
+
+## how to test deposit and withdrawal
+Make sure account1 and account2 have sufficient funds in MetaMask. 
+
+```
+truffle compile
+
+truffle migrate --reset
+
+var accounts;
+
+web3.eth.getAccounts(function(err,res) { accounts = res; });
+
+var account1 = accounts[0]; // first account
+
+var account2 = accounts[1]; // second account, if exists
+
+var account3 = accounts[2];
+
+console.log(account1);
+
+Accounts.deployed().then(function(instance){return instance.addStudent("Martin Shrekli", "Columbia", "Phrma bro", "https://ei.marketwatch.com/Multimedia/2016/06/06/Photos/MG/MW-EO507_shkrel_20160606174055_MG.jpg?uuid=59565cec-2c2f-11e6-9347-0015c588dfa6", {from: account3});}).then(console.log);
+
+Accounts.deployed().then(function(instance){return instance.addLender("Raphael", {from: account1});}).then(console.log);
+
+Accounts.deployed().then(function(instance){return instance.addLender("Talal", {from: account2});}).then(console.log);
+
+Accounts.deployed().then(function(instance){return instance.startFundraising(2000, {from: account3});}).then(console.log);
+
+Accounts.deployed().then(function(instance){return instance.getLenderBalanceIdx(0, {from: account1});}).then(console.log);
+
+Accounts.deployed().then(function(instance){return instance.getLenderBalanceIdx(1, {from: account2});}).then(console.log);
+
+Accounts.deployed().then(function(instance){return instance.getStudentRaisedIdx(0, {from: account3});}).then(console.log);
+
+Accounts.deployed().then(function(instance){return instance.fund(0, {from: account1, value: 1000, gas:900000});}).then(console.log);
+
+Accounts.deployed().then(function(instance){return instance.fund(0, {from: account2, value: 1000, gas:900000});}).then(console.log);
+
+Accounts.deployed().then(function(instance){return instance.getNumStudentFundersIdx(0);}).then(console.log);
+
+Accounts.deployed().then(function(instance){return instance.getStudentRaisedIdx(0, {from: account2});}).then(console.log);
+
+Accounts.deployed().then(function(instance){return instance.getContractBalance()}).then(console.log);
+
+Accounts.deployed().then(function(instance){return instance.withdraw(250, {from: account3});}).then(console.log);
+
+//Amount left in student's contract after withdrawl
+Accounts.deployed().then(function(instance){return instance.getStudentRaisedIdx(0, {from: account2});}).then(console.log);
+
+//Amount in student's bank account after withdrawl
+web3.fromWei(web3.eth.getBalance(account3));
+
+```
+
+
+Accounts.deployed().then(function(instance){return instance.addStudent("Martin Shrekli", "Columbia", "Phrma bro", "https://ei.marketwatch.com/Multimedia/2016/06/06/Photos/MG/MW-EO507_shkrel_20160606174055_MG.jpg?uuid=59565cec-2c2f-11e6-9347-0015c588dfa6");}).then(console.log);
+
+Accounts.deployed().then(function(instance){return instance.getStudentPhotoURL(0);}).then(console.log);
+
+
+function getStudentPhotoURL(uint idx) public view returns(string) { return slist[idx].photourl; }
+
+
