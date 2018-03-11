@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import { Header, Image, Modal, Container, Button, Checkbox, Statistic, Form, Progress, Segment } from 'semantic-ui-react'
+import { Header, Image, Modal, Container, Input, Button, Checkbox, Statistic, Form, Progress, Segment } from 'semantic-ui-react'
 import styled from 'styled-components';
 
 const StyledWallet = styled.div`
@@ -38,7 +38,8 @@ class StudentWallet extends Component {
     fundraisingStatus: null,
     newGoal: 0,
     modalOpen: false,
-    status: 'newUser'
+    status: 'newUser',
+    withdrawAmount: 0
   }
 
   getMinReq = async (idx) => this.props.AccountsInstance.getStudentMinReqIdx(idx)
@@ -85,6 +86,20 @@ class StudentWallet extends Component {
       const result = await AccountsInstance.startFundraising(amountWei, {from: accounts[0], gas: 6385876 });  
       console.log(result)
       this.setState({modalOpen: false})
+      this.componentWillReceiveProps(this.props)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  withdraw = async () => {
+    const { AccountsInstance, accounts, history, web3 } = this.props;
+    
+    try {
+      const amountWei = web3.toWei(this.state.withdrawAmount, 'ether')
+      const result = await AccountsInstance.withdraw(amountWei, {from: accounts[0], gas: 6385876 });  
+      console.log(result)
+      // this.setState({modalOpen: false})
       this.componentWillReceiveProps(this.props)
     } catch (e) {
       console.log(e)
@@ -146,6 +161,23 @@ class StudentWallet extends Component {
               </Modal.Description>
             </Modal.Content>
           </Modal> : ""}
+
+          { this.state.status == "complete" ? 
+            <div style={{marginTop: 40}}>
+              <Header as='h2'>Withdraw</Header>
+              <Form onSubmit={this.withdraw}>
+                 <Form.Field inline>
+                   <label>Amount</label>
+                   <Input placeholder='100' type='number' onChange={(e) => this.setState({withdrawAmount: e.target.value})} />
+                 </Form.Field>
+                 <Form.Field inline>
+                   <label>What for?</label>
+                   <Input placeholder='Food' />
+                 </Form.Field>
+                 <Button>Submit</Button>
+               </Form>
+              </div>
+          : ""}
         </Container>
       </StyledWallet>
     )
