@@ -10,8 +10,11 @@ import FunderSignup from './FunderSignup'
 import SideBar from './SideBar'
 import StudentWallet from './StudentWallet'
 import StudentProfile from './StudentProfile'
+import StudentTransactions from './StudentTransactions'
 
-import Test from './Test'
+const FunderHome = () => <div>hi um funder home</div>
+
+// import Test from './Test'
 
 class App extends Component {
   state = {
@@ -48,17 +51,14 @@ class App extends Component {
         <div>
           <Route exact path="/" render={(props) => ( <Landing {...props} {...this.state} /> )} />
           <Route exact path="/student/signup" render={(props) => ( <StudentSignup {...props} {...this.state} /> )} />
-          <SideBar>
-            <Route exact path="/student/wallet" component={StudentWallet} />
-            <Route exact path="/student/profile" component={StudentProfile} />
-          </SideBar>
-          
-          {/*<Route exact path="/student/myfunders" component={StudentMyFunders} />
-          <Route exact path="/student/transactions" component={StudentTransactions} />}*/}
+          <Route exact path="/student/wallet" render={(props) => ( <SideBar><StudentWallet {...props} {...this.state} /></SideBar> )} />
+          <Route exact path="/student/profile" render={(props) => ( <SideBar><StudentProfile {...props} {...this.state} /></SideBar> )} />
+          {/*<Route exact path="/student/myfunders" component={StudentMyFunders} />*/}
+          <Route exact path="/student/transactions" render={(props) => ( <SideBar><StudentTransactions {...props} {...this.state} /></SideBar> )} />
 
           <Route exact path="/funder/signup" render={(props) => ( <FunderSignup {...props} {...this.state} /> )} />
-          {/*<Route exact path="/funder/home" component={FunderHome} />*/}
-          <Route exact path="/test" component={Test} />
+          <Route exact path="/funder/home" component={FunderHome} />
+          {/*<Route exact path="/test" component={Test} />*/}
         </div>
       </Router>
     )

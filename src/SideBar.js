@@ -7,7 +7,7 @@ import styled from 'styled-components';
 const Wrapper = styled.div`
   height: 100%;
   min-height: 100vh;
-  width: 100%;  
+  width: 100%; 
 `;
 
 class SideBar extends Component {
@@ -29,6 +29,12 @@ class SideBar extends Component {
               <Icon name='camera' />
               Channels
             </Menu.Item>
+
+            <Menu.Item name='exchange' active={pathname == '/student/transactions'} as={Link} to='/student/transactions'> 
+              <Icon name='exchange'/>
+              Transactions
+            </Menu.Item>
+
           </Sidebar>
           <Sidebar.Pusher>
             <Wrapper>
