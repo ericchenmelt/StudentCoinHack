@@ -133,6 +133,7 @@ contract Accounts {
 	function getStudentAccIdx(uint idx) public view returns(address) { return slist[idx].studentAccount; }
 	function getStudentMinReqIdx(uint idx) public view returns(uint) { return slist[idx].minimumToRaise; }
 	function getStudentRaisedIdx(uint idx) public view returns(uint) { return slist[idx].totalRaised; }
+	function getStudentFundraisingIdx(uint idx) public view returns(bool) { return slist[idx].fundraising; }
 	//function listStudents() public returns(Student[]) { return slist; }
 
 	function getStudentNameByAddress() public view returns(string) {return studentMap[msg.sender].name; }

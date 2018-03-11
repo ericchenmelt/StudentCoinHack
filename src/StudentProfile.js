@@ -1,6 +1,28 @@
 // @flow
 import React, { Component } from 'react'
 import { Header, Container, Button, Checkbox, Form } from 'semantic-ui-react'
+import styled from 'styled-components';
+
+const StyledProfile = styled.div`
+  background: rgb(237, 248, 252);
+  background-size: cover;
+  height: 100%;
+  min-height: 100vh;
+  width:calc(100% - 150px);;
+
+  div.ui.text.container {
+    padding-top: 2%;
+  }
+
+  @media only screen and (min-width: 768px) {
+    h1.ui.header {
+      font-size: 2rem;
+      font-weight:400;
+    
+    }
+  }
+
+`;
 
 class StudentProfile extends Component {
   state = {
@@ -31,12 +53,14 @@ class StudentProfile extends Component {
   render() {
     const { name, uni, country } = this.state;
     return (
-      <Container>
-        <Header as='h1'>Profile</Header>
-        <Header as='h3'>Name: {name}</Header>
-        <p>University: {uni}</p>
-        <p>Country: {country}</p>
-      </Container>
+      <StyledProfile>
+        <Container text>
+          <Header as='h1'>Profile</Header>
+          <Header as='h3'>Name: {name}</Header>
+          <p>University: {uni}</p>
+          <p>Country: {country}</p>
+        </Container>
+      </StyledProfile>
     )
   }
 }

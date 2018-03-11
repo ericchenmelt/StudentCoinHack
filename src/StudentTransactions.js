@@ -9,11 +9,9 @@ const StyledTransactions = styled.div`
   min-height: 100vh;
   width:calc(100% - 150px);
 
-
   div.ui.text.container {
     padding-top: 2%;
   }
-
 
   @media only screen and (min-width: 768px) {
     h1.ui.header {
@@ -22,36 +20,42 @@ const StyledTransactions = styled.div`
       margin-top:0;
     }
   }
-
 `;
-
 
 class StudentTransactions extends Component {
   state = {
-    time: null,
-    from: null,
-    to: null,
-    amount: null
+    txs: null
   }
 
-  // handleSubmit = async () => {
-  //   const { AccountsInstance, accounts, history } = this.props;
-  
-  //   try {
-  //     const result = await AccountsInstance.addStudent(this.state.name, this.state.uni, this.state.country, {from: accounts[0] });  
-  //     history.push('/student/wallet')
-  //   } catch (e) {
-  //     console.log(e)
-  //   }
-  // }
+  async componentWillReceiveProps(nextProps) {
+    if (nextProps.web3) {
+      const eth = nextProps.web3.eth;
+      var n = eth.blocknumber;
 
+      var txs = [];
+      for(var i = 0; i < n; i++) {
+          var block = eth.getBlock(i, true);
+          for(var j = 0; j < block.transactions; j++) {
+              if( block.transactions[j].to == "0x7A33615d12A12f58b25c653dc5E44188D44f6898" || block.transactions[j].from == "0x7A33615d12A12f58b25c653dc5E44188D44f6898" )
+                  txs.push(block.transactions[j]);
+          }
+      }
+      console.log(txs)
+    }
+  }
+
+  async componentWillMount() {
+    if(this.state.txs === null) {
+      this.componentWillReceiveProps(this.props)
+    }
+  }
   render() {
     return(
     <StyledTransactions>
       <Container text>
         <Header as='h1'>Transaction History</Header>
 
-        <Table>
+        <Table celled>
 	        <Table.Header>
 		        <Table.Row>
 		        <Table.HeaderCell>Time</Table.HeaderCell>
@@ -63,20 +67,15 @@ class StudentTransactions extends Component {
 
             <Table.Body>
  			    <Table.Row>
-		        <Table.HeaderCell>03/11/2018</Table.HeaderCell>
-		        <Table.HeaderCell>Japan</Table.HeaderCell>
-		        <Table.HeaderCell>Canada</Table.HeaderCell>
-		        <Table.HeaderCell>300</Table.HeaderCell>
+		        <Table.HeaderCell textAlign='center'>03/11/2018</Table.HeaderCell>
+		        <Table.HeaderCell textAlign='center'>Japan</Table.HeaderCell>
+		        <Table.HeaderCell textAlign='center'>Canada</Table.HeaderCell>
+		        <Table.HeaderCell textAlign='center'>300</Table.HeaderCell>
 		        </Table.Row>
             </Table.Body>
-
-            
-
         </Table>
       </Container>
-
     </StyledTransactions>
-
     )
   }
 }
