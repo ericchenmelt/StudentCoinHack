@@ -13,11 +13,16 @@ const promiseWhile = (data, condition, action) => {
 class FunderHome extends Component {
 
   state = {
-    name: null
+    name: null,
+    students: []
   }
 
   getName = async (idx, params) => this.props.AccountsInstance.getLenderNameByAddress(idx, params)
   getStudentsCount = async () => this.props.AccountsInstance.getStudentCount()
+  getStudentName = async (idx) => this.props.AccountsInstance.getStudentNameIdx(idx)
+  getStudentUni = async (idx) => this.props.AccountsInstance.getStudentUniIdx(idx)
+  getStudentCountry = async (idx) => this.props.AccountsInstance.getStudentCountryIdx(idx)
+  getStudentAcc = async (idx) => this.props.AccountsInstance.getStudentAccIdx(idx)
   
   async componentWillReceiveProps(nextProps) {
     if (nextProps.AccountsInstance) {
@@ -39,11 +44,26 @@ class FunderHome extends Component {
     console.log('all students')
     const result = await nextProps.AccountsInstance.getStudentCount();
     const count = result.c[0]
+
+    const students = []
+
+    const getStudent = (idx) => {
+      return this.getStudentName(idx).then((name) => { students.push({ name: 'student-name', country: 'usa', uni: "columbia" }) })
+    }
+    await promiseWhile(0, i => i <= count, getStudent);
+    this.setState({ students })
   }
 
   render() {
     return (
-      <div>name: {this.state.name}</div>
+      <div>
+      { this.state.students.map(student => <div key={student.name}>
+          <p>hi i'm {student.name} </p>
+          <p>hi i'm {student.country} </p>
+          <p>hi i'm {student.uni} </p>
+        </div>)
+      }
+      </div>
     )
   }
 }
