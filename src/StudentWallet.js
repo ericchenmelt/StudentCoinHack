@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import { Header, Image, Modal, Container, Button, Checkbox, Form } from 'semantic-ui-react'
+import { Header, Image, Modal, Container, Button, Checkbox, Statistic, Form, Progress } from 'semantic-ui-react'
 import styled from 'styled-components';
 
 const StyledWallet = styled.div`
@@ -21,7 +21,6 @@ const StyledWallet = styled.div`
     h1.ui.header {
       font-size: 2rem;
       font-weight:400;
-    
     }
   }
 
@@ -70,14 +69,20 @@ class StudentWallet extends Component {
     	<StyledWallet>
 
 	      
-      <Container>
+      <Container text>
 
 	        <Header as='h1'>My Wallet</Header>
 
+	        <Progress percent={(this.state.raised/this.state.minReq)*100} />
+
+	       <Statistic>
+		    <Statistic.Value>{this.state.minReq}</Statistic.Value>
+		    <Statistic.Label>Your Goal:</Statistic.Label>
+		    <Statistic.Value>{this.state.raised}</Statistic.Value>
+		    <Statistic.Label>Amount Raised:</Statistic.Label>
+		  </Statistic>
 	    
-	      
-        <p>minReq: {this.state.minReq}</p>
-        <p>raised: {this.state.raised}</p>
+	     
         {!this.state.fundraisingStatus &&
           <Modal trigger={
             <Button>Start Fundraising</Button>
