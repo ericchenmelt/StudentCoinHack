@@ -20,10 +20,6 @@ const FunderForm = styled.div`
     h1.ui.header {
       font-size: 4rem;
     }
-
-    .ui.purple.huge.button {
-      margin-left: 40px;
-    }
   }
 
 `;
@@ -55,16 +51,5 @@ const StyledForm = () => <FunderForm>
   </Container>
 
 </FunderForm>
-
-
-class FunderForm extends Component {
-  render() {
-    return (
-      <div>
-        <StyledForm />
-      </div>
-    );
-  }
-}
 
 export default FunderForm

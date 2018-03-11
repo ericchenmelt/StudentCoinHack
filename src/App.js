@@ -11,7 +11,7 @@ import SideBar from './SideBar'
 import StudentWallet from './StudentWallet'
 import StudentProfile from './StudentProfile'
 
-import Test from './Test'
+// import Test from './Test'
 
 class App extends Component {
   state = {

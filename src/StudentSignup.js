@@ -3,8 +3,7 @@ import React, { Component } from 'react'
 import { Button, Checkbox, Header,Container, Form } from 'semantic-ui-react'
 import styled from 'styled-components';
 
-
-const StudentForm = styled.div`
+const StyledStudentForm = styled.div`
   background: rgb(237, 248, 252);
   background-size: cover;
   height: 100%;
@@ -20,22 +19,16 @@ const StudentForm = styled.div`
     h1.ui.header {
       font-size: 4rem;
     }
-
-    .ui.green.huge.button {
-      margin-left: 40px;
-    }
   }
 
 `;
 
 
 class StudentForm extends Component {
-
-    state = {
+  state = {
     name: null,
     country: null,
     uni: null
-
   }
 
   handleSubmit = async () => {
@@ -49,41 +42,40 @@ class StudentForm extends Component {
     }
   }
 
-render() {
+  render() {
     return(
-      <StudentForm>
+    <StyledStudentForm>
       <Container text>
-           <Header as='h1'>Create a Student Account</Header>
+        <Header as='h1'>Create a Student Account</Header>
 
-           <Form>
-            <Form.Field>
-              <label>Full Name</label>
-              <input placeholder='First Name' onChange={(e) => this.setState({name: e.target.value})} />
-            </Form.Field>
+        <Form>
+        <Form.Field>
+        <label>Full Name</label>
+        <input placeholder='First Name' onChange={(e) => this.setState({name: e.target.value})} />
+        </Form.Field>
 
-            <Form.Field>
-              <label>Country</label>
-              <input placeholder='Country' onChange={(e) => this.setState({country: e.target.value})}/>
-            </Form.Field>
+        <Form.Field>
+        <label>Country</label>
+        <input placeholder='Country' onChange={(e) => this.setState({country: e.target.value})}/>
+        </Form.Field>
 
-            <Form.Field>
-              <label>University</label>
-              <input placeholder='University' nChange={(e) => this.setState({uni: e.target.value})}/>
-             </Form.Field>
+        <Form.Field>
+        <label>University</label>
+        <input placeholder='University' onChange={(e) => this.setState({uni: e.target.value})}/>
+        </Form.Field>
 
-            <Form.Field>
-              <Checkbox label='I agree to the Terms and Conditions' />
-            </Form.Field>
-            <Button color='green' size='huge' type='submit'>Sign Up</Button>
-            
-          </Form>
+        <Form.Field>
+        <Checkbox label='I agree to the Terms and Conditions' />
+        </Form.Field>
+        <Button color='green' size='huge' type='submit'>Sign Up</Button>
+
+        </Form>
       </Container>
 
-  </StudentForm>
+    </StyledStudentForm>
 
     )
   }
-
 }
 
 export default StudentForm
