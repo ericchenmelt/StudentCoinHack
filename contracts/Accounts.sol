@@ -11,6 +11,7 @@ contract Accounts {
 		string name;
 		string university;
 		string country;
+		string photourl;
 		address studentAccount;
 		uint minimumToRaise;
 		uint totalRaised;
@@ -38,12 +39,13 @@ contract Accounts {
 		return name;
 	}
 
-	function addStudent(string sName, string uni, string country)
+	function addStudent(string sName, string uni, string country, string photo)
 		public {
 		var sNew = Student({
 			name: sName,
 			university: uni,
 			studentAccount: msg.sender,
+			photourl: photo,
 			country: country,
 			minimumToRaise: 0,
 			totalRaised: 0,
@@ -133,6 +135,7 @@ contract Accounts {
 	function getStudentNameIdx(uint idx) public view returns(string) { return slist[idx].name; }
 	function getStudentUniIdx(uint idx) public view returns(string) { return slist[idx].university; }
 	function getStudentCountryIdx(uint idx) public view returns(string) { return slist[idx].country; }
+	function getStudentPhotoURL(uint idx) public view returns(string) { return slist[idx].photourl; }
 	function getStudentAccIdx(uint idx) public view returns(address) { return slist[idx].studentAccount; }
 	function getStudentMinReqIdx(uint idx) public view returns(uint) { return slist[idx].minimumToRaise; }
 	function getStudentRaisedIdx(uint idx) public view returns(uint) { return slist[idx].totalRaised; }

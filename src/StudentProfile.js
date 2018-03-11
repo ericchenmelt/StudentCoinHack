@@ -28,19 +28,21 @@ class StudentProfile extends Component {
   state = {
     name: null, 
     country: null, 
-    uni: null 
+    uni: null,
+    photourl: null
   }
 
   getName = async (idx) => this.props.AccountsInstance.getStudentNameIdx(idx)
   getUni = async (idx) => this.props.AccountsInstance.getStudentUniIdx(idx)
   getCountry = async (idx) => this.props.AccountsInstance.getStudentCountryIdx(idx)
   getAcc = async (idx) => this.props.AccountsInstance.getStudentAccIdx(idx)
+  getPhotoURL = async (idx) => this.props.AccountsInstance.getStudentPhotoURL(idx)
 
   async componentWillReceiveProps(nextProps) {
     if (nextProps.AccountsInstance) {
       const idx = await nextProps.AccountsInstance.getStudentIdxByAddress();
-      const [ name, uni, country, acc ] = await Promise.all([ this.getName(idx), this.getUni(idx), this.getCountry(idx), this.getAcc(idx) ]);
-      this.setState({ name, uni, country })
+      const [ name, uni, country, photourl, acc ] = await Promise.all([ this.getName(idx), this.getUni(idx), this.getCountry(idx), this.getPhotoURL(idx), this.getAcc(idx) ]);
+      this.setState({ name, uni, country, photourl })
     }
   }
 
@@ -51,12 +53,13 @@ class StudentProfile extends Component {
   }
 
   render() {
-    const { name, uni, country } = this.state;
+    const { name, uni, country, photourl } = this.state;
     return (
       <StyledProfile>
         <Container text>
           <Header as='h1'>Profile</Header>
           <Header as='h3'>Name: {name}</Header>
+          <img src={photourl} alt="Profile Pic"  height="300" width="400"/>
           <p>University: {uni}</p>
           <p>Country: {country}</p>
         </Container>

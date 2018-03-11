@@ -26,14 +26,15 @@ class StudentForm extends Component {
   state = {
     name: null,
     country: null,
-    uni: null
+    uni: null,
+    photourl: null
   }
 
   handleSubmit = async () => {
     const { AccountsInstance, accounts, history } = this.props;
   
     try {
-      const result = await AccountsInstance.addStudent(this.state.name, this.state.uni, this.state.country, {from: accounts[0] });  
+      const result = await AccountsInstance.addStudent(this.state.name, this.state.uni, this.state.country, this.state.photourl, {from: accounts[0] });  
       history.push('/student/wallet')
     } catch (e) {
       console.log(e)
@@ -60,6 +61,11 @@ class StudentForm extends Component {
           <Form.Field>
             <label>University</label>
             <input placeholder='University' onChange={(e) => this.setState({uni: e.target.value})}/>
+          </Form.Field>
+
+          <Form.Field>
+            <label>Profile Photo URL</label>
+            <input placeholder='Profile Photo URL' onChange={(e) => this.setState({photourl: e.target.value})}/>
           </Form.Field>
 
           <Form.Field>

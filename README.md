@@ -87,7 +87,7 @@ var account3 = accounts[2];
 
 console.log(account1);
 
-Accounts.deployed().then(function(instance){return instance.addStudent("Martin Shrekli", "Columbia", "Phrma bro", {from: account3});}).then(console.log);
+Accounts.deployed().then(function(instance){return instance.addStudent("Martin Shrekli", "Columbia", "Phrma bro", "https://ei.marketwatch.com/Multimedia/2016/06/06/Photos/MG/MW-EO507_shkrel_20160606174055_MG.jpg?uuid=59565cec-2c2f-11e6-9347-0015c588dfa6", {from: account3});}).then(console.log);
 
 Accounts.deployed().then(function(instance){return instance.addLender("Raphael", {from: account1});}).then(console.log);
 
@@ -120,3 +120,13 @@ Accounts.deployed().then(function(instance){return instance.getStudentRaisedIdx(
 web3.fromWei(web3.eth.getBalance(account3));
 
 ```
+
+
+Accounts.deployed().then(function(instance){return instance.addStudent("Martin Shrekli", "Columbia", "Phrma bro", "https://ei.marketwatch.com/Multimedia/2016/06/06/Photos/MG/MW-EO507_shkrel_20160606174055_MG.jpg?uuid=59565cec-2c2f-11e6-9347-0015c588dfa6");}).then(console.log);
+
+Accounts.deployed().then(function(instance){return instance.getStudentPhotoURL(0);}).then(console.log);
+
+
+function getStudentPhotoURL(uint idx) public view returns(string) { return slist[idx].photourl; }
+
+
