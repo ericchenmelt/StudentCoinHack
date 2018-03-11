@@ -86,7 +86,12 @@ class StudentWallet extends Component {
             
 	        {!this.state.fundraisingStatus && this.state.raised && <p>funding is complete!</p> }
             {this.state.fundraisingStatus && <p>Funding in Progress!</p> }
+
 	        <div>
+
+	        	<Progress percent={percent} />	        
+
+	        {this.state.minReq && <div>
 
 	        	<Progress percent={percent} />
 

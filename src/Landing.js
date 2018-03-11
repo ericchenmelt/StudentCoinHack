@@ -58,11 +58,11 @@ const StyledBannerSection = () => <BannerSection>
 class Landing extends Component {
   willReRoute = async () => {
     if(this.props.web3 && this.props.AccountsInstance) {
-      const studentName = await this.props.AccountsInstance.getStudentNameByAddress();
+      const studentName = await this.props.AccountsInstance.getStudentNameByAddress({from: this.props.accounts[0] });
       if(studentName !== "") {
         this.props.history.push('/student/profile')
       } else {
-        const lenderName = await this.props.AccountsInstance.getLenderNameByAddress();
+        const lenderName = await this.props.AccountsInstance.getLenderNameByAddress({from: this.props.accounts[0] });
         if(lenderName !== "") {
           this.props.history.push('/funder/home')
         }
