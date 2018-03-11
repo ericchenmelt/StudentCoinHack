@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import { Header, Image, Modal, Container, Button, Checkbox, Form } from 'semantic-ui-react'
+import { Header, Image, Modal, Container, Button, Checkbox, Statistic, Form, Progress } from 'semantic-ui-react'
 import styled from 'styled-components';
 
 const StyledWallet = styled.div`
@@ -19,7 +19,6 @@ const StyledWallet = styled.div`
     h1.ui.header {
       font-size: 2rem;
       font-weight:400;
-    
     }
   }
 `;
@@ -65,14 +64,21 @@ class StudentWallet extends Component {
   }
 
   render() {
+    const percent = (this.state.raised + 1)/(this.state.minReq + 1)*100
+
     return (
     	<StyledWallet>
-        <Container>
+        <Container text>
+          <Header as='h1'>My Wallet</Header>
           {!this.state.fundraisingStatus && this.state.raised && <p>funding is complete!</p> }
           {this.state.fundraisingStatus && <p>funding in progress!</p> }
-          <Header as='h1'>My Wallet</Header>
-          <p>minReq: {this.state.minReq}</p>
-          <p>raised: {this.state.raised}</p>
+          <Progress percent={percent} />
+          <Statistic>
+            <Statistic.Value>{this.state.minReq}</Statistic.Value>
+            <Statistic.Label>Your Goal:</Statistic.Label>
+            <Statistic.Value>{this.state.raised}</Statistic.Value>
+            <Statistic.Label>Amount Raised:</Statistic.Label>
+          </Statistic>
           {!this.state.fundraisingStatus &&
             <Modal open={this.state.modalOpen} trigger={
               <Button onClick={() => this.setState({modalOpen: true})}>Start Fundraising</Button>
