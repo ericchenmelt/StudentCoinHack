@@ -125,10 +125,11 @@ contract Accounts {
 	function getStudentRaisedIdx(uint idx) public view returns(uint) { return slist[idx].totalRaised; }
 	//function listStudents() public returns(Student[]) { return slist; }
 
-	function getStudentByAddress() public view returns(string) {
-	return studentMap[msg.sender].name; 
-}
-	function getLenderByAddress() public view returns(string) { return lenderMap[msg.sender].name; }
+	function getStudentNameByAddress() public view returns(string) {return studentMap[msg.sender].name; }
+	function getStudentIdxByAddress() public view returns(uint) {return studentMap[msg.sender].idx; }
+	
+	function getLenderNameByAddress() public view returns(string) { return lenderMap[msg.sender].name; }
+	function getLenderIdxByAddress() public view returns(uint) { return lenderMap[msg.sender].idx; }
 
 	function getStudentCount() public view returns(uint) { return numStudents; }
 	function gitLenderCount() public view returns(uint) { return numLenders; }
