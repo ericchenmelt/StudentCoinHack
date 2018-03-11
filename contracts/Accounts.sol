@@ -15,6 +15,7 @@ contract Accounts {
 		uint minimumToRaise;
 		uint totalRaised;
 		uint idx;
+		uint numFunders;
 		bool fundraising;
 	}
 	
@@ -46,6 +47,7 @@ contract Accounts {
 			country: country,
 			minimumToRaise: 0,
 			totalRaised: 0,
+			numFunders: 0,
 			idx: numStudents,
 			fundraising: false
 		});
@@ -91,6 +93,7 @@ contract Accounts {
 		require(studentMap[stdntAcct].fundraising);
 		uint lIdx = lenderMap[msg.sender].idx;
 		pledges[msg.sender][stdntAcct] += amount;
+		studentMap[stdntAcct].numFunders += 1;
 		studentMap[stdntAcct].totalRaised += amount;
 		lenderMap[msg.sender].balance -= amount;
 		lenderMap[msg.sender].totalDonated += amount;
@@ -134,6 +137,7 @@ contract Accounts {
 	function getStudentMinReqIdx(uint idx) public view returns(uint) { return slist[idx].minimumToRaise; }
 	function getStudentRaisedIdx(uint idx) public view returns(uint) { return slist[idx].totalRaised; }
 	function getStudentFundraisingIdx(uint idx) public view returns(bool) { return slist[idx].fundraising; }
+	function getNumStudentFundersIdx(uint idx) public view returns(uint) { return slist[idx].numFunders; }
 	//function listStudents() public returns(Student[]) { return slist; }
 
 	function getStudentNameByAddress() public view returns(string) {return studentMap[msg.sender].name; }

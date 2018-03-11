@@ -67,8 +67,8 @@ truffle develop
 > Accounts.deployed().then(function(instance){return instance.getStudentCount();}).then(console.log);
 ```
 
-## how to test deposit
-Make sure account1 has sufficient funds in MetaMask. 
+## how to test deposit and withdrawal
+Make sure account1 and account2 have sufficient funds in MetaMask. 
 
 ```
 truffle compile
@@ -83,25 +83,40 @@ var account1 = accounts[0]; // first account
 
 var account2 = accounts[1]; // second account, if exists
 
+var account3 = accounts[2];
+
 console.log(account1);
 
-Accounts.deployed().then(function(instance){return instance.addStudent("Martin Shrekli", "Columbia", "Phrma bro", {from: account2});}).then(console.log);
+Accounts.deployed().then(function(instance){return instance.addStudent("Martin Shrekli", "Columbia", "Phrma bro", {from: account3});}).then(console.log);
 
 Accounts.deployed().then(function(instance){return instance.addLender("Raphael", {from: account1});}).then(console.log);
 
-Accounts.deployed().then(function(instance){return instance.startFundraising(1000, {from: account2});}).then(console.log);
+Accounts.deployed().then(function(instance){return instance.addLender("Talal", {from: account2});}).then(console.log);
+
+Accounts.deployed().then(function(instance){return instance.startFundraising(2000, {from: account3});}).then(console.log);
 
 Accounts.deployed().then(function(instance){return instance.getLenderBalanceIdx(0, {from: account1});}).then(console.log);
 
-Accounts.deployed().then(function(instance){return instance.getStudentRaisedIdx(0, {from: account2});}).then(console.log);
+Accounts.deployed().then(function(instance){return instance.getLenderBalanceIdx(1, {from: account2});}).then(console.log);
+
+Accounts.deployed().then(function(instance){return instance.getStudentRaisedIdx(0, {from: account3});}).then(console.log);
 
 Accounts.deployed().then(function(instance){return instance.fund(0, {from: account1, value: 1000, gas:900000});}).then(console.log);
+
+Accounts.deployed().then(function(instance){return instance.fund(0, {from: account2, value: 1000, gas:900000});}).then(console.log);
+
+Accounts.deployed().then(function(instance){return instance.getNumStudentFundersIdx(0);}).then(console.log);
 
 Accounts.deployed().then(function(instance){return instance.getStudentRaisedIdx(0, {from: account2});}).then(console.log);
 
 Accounts.deployed().then(function(instance){return instance.getContractBalance()}).then(console.log);
 
-Accounts.deployed().then(function(instance){return instance.withdraw(250, {from: account2})}).then(console.log);
+Accounts.deployed().then(function(instance){return instance.withdraw(250, {from: account3});}).then(console.log);
 
+//Amount left in student's contract after withdrawl
 Accounts.deployed().then(function(instance){return instance.getStudentRaisedIdx(0, {from: account2});}).then(console.log);
+
+//Amount in student's bank account after withdrawl
+web3.fromWei(web3.eth.getBalance(account3));
+
 ```
