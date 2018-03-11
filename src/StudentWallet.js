@@ -89,7 +89,7 @@ class StudentWallet extends Component {
                <Progress percent={percent} />
              </div>
 
-	        {this.state.minReq && <div>
+	        {this.state.minReq || this.state.raised && <div>
 
 	      		<Segment.Group horizontal>
 	               <Segment textAlign='center'>

@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react'
 import { Link } from "react-router-dom";
-import { Input, Button, Card, Image, Container, Header } from 'semantic-ui-react'
+import { Input, Button, Card, Image, Container, Header, Modal, Icon, Form, Checkbox } from 'semantic-ui-react'
 import styled from 'styled-components';
 import Grad from './images/grad.svg'
 
@@ -39,7 +39,10 @@ class FunderHome extends Component {
   state = {
     name: null,
     students: [],
-    uniFilter: null
+    uniFilter: null,
+    modalOpen: false,
+    selectedStudentIdx: null,
+    amount: 0
   }
 
   getName = async (idx, params) => this.props.AccountsInstance.getLenderNameByAddress(idx, params)
@@ -77,13 +80,26 @@ class FunderHome extends Component {
           this.getStudentUni(idx, {from: nextProps.accounts[0] }), 
           this.getStudentCountry(idx, {from: nextProps.accounts[0] })
         ]);
-        const newStudent = { name, country, uni }
+        const newStudent = { name, country, uni, idx }
         students.push(newStudent)
         resolve(idx + 1);
       });
     }
     await promiseWhile(0, i => i < count, getStudent);
     this.setState({ students })
+  }
+
+  handleSubmit = async () => {
+    const { AccountsInstance, accounts, history } = this.props;
+  
+    try {
+      let idx = 0;
+      const result = await AccountsInstance.fund(this.state.selectedStudentIdx, {from: accounts[0], value: this.state.amount });  
+      console.log(result)
+      this.setState({modalOpen: false})
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   render() {
@@ -96,7 +112,7 @@ class FunderHome extends Component {
         <Container text>
             <Header as ='h1'>Find Students</Header>
             <div>
-            { filteredStudents.map(student => <div key={student.name}>
+            { filteredStudents.map(student => <div key={student.idx}>
 
               <Card.Group>
                 <Card>
@@ -115,11 +131,9 @@ class FunderHome extends Component {
 
                     </Card.Content>
                     <Card.Content extra>
-                        <Button basic color='green'>Fund This Student</Button>
+                        <Button basic color='green' data-idx={student.idx} onClick={(e) => { this.setState({modalOpen: true, selectedStudentIdx: e.target.dataset.idx }) } }>Fund This Student</Button>
                     </Card.Content>
                 </Card>
-
-                
               </Card.Group>
               </div>)
             }
@@ -127,6 +141,22 @@ class FunderHome extends Component {
           </Container>
 
       </StyledFunder>
+        <Modal open={this.state.modalOpen} size='small'>
+          <Header content='Fund Bob' />
+          <Modal.Content>
+            <Form onSubmit={this.handleSubmit}>
+              <Form.Field>
+                <label>amount (ETH)</label>
+                <input placeholder='10' onChange={(e) => this.setState({amount: e.target.value})} />
+              </Form.Field>
+              <Form.Field>
+                <Checkbox label='I agree to the Terms and Conditions' />
+              </Form.Field>
+              <Button color='green' size='huge' type='submit'>Fund</Button>
+            </Form>
+          </Modal.Content>
+        </Modal>
+
       </div>
 
     )
