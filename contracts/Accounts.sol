@@ -10,6 +10,7 @@ contract Accounts {
 	struct Student {
 		string name;
 		string university;
+		string country;
 		address studentAccount;
 		uint minimumToRaise;
 		uint totalRaised;
@@ -36,16 +37,17 @@ contract Accounts {
 		return name;
 	}
 
-	function addStudent(string sName, string uni, uint minRaise)
+	function addStudent(string sName, string uni, string country)
 		public {
 		var sNew = Student({
 			name: sName,
 			university: uni,
 			studentAccount: msg.sender,
-			minimumToRaise: minRaise,
+			country: country,
+			minimumToRaise: 0,
 			totalRaised: 0,
 			idx: numStudents,
-			fundraising: true
+			fundraising: false
 		});
 
 		studentMap[msg.sender] = sNew;
@@ -55,6 +57,11 @@ contract Accounts {
 
 	}
 	
+	// function start fundraising 
+	// up
+	// 	fundatin  = trie 
+	// 	update student 
+	// 	minimumToRaise: minRaise,
 	
 	function addLender(string lName)
 		public returns (Lender){
