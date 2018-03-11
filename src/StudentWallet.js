@@ -47,6 +47,7 @@ class StudentWallet extends Component {
     if (nextProps.AccountsInstance) {
       const idx = await nextProps.AccountsInstance.getStudentIdxByAddress();
       const [ minReq, raised, fundraisingStatus ] = await Promise.all([ this.getMinReq(idx), this.getRaised(idx), this.getFundraisingStatus(idx) ]);
+      console.log('minReq', minReq.c[0])
       this.setState({ minReq: minReq.c[0], raised: raised.c[0], fundraisingStatus })
     }
   }
@@ -79,7 +80,7 @@ class StudentWallet extends Component {
       <Container text>
 
 	        <Header as='h1'>My Wallet</Header>
-            
+          
             
 	        {!this.state.fundraisingStatus && this.state.raised && <p>funding is complete!</p> }
             {this.state.fundraisingStatus && <p>Funding in Progress!</p> }
@@ -118,7 +119,7 @@ class StudentWallet extends Component {
                 <Form onSubmit={this.handleSubmit}>
                   <Form.Field>
                     <label>Goal amount</label>
-                    <input placeholder='1000 ETH' />
+                    <input placeholder='1000 ETH' onChange={(e) => this.setState({newGoal: e.target.value})} />
                   </Form.Field>
                   <Form.Field>
                     <Checkbox label='I agree to the Terms and Conditions' />
