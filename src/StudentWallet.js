@@ -1,6 +1,28 @@
 // @flow
 import React, { Component } from 'react'
 import { Header, Image, Modal, Container, Button, Checkbox, Form } from 'semantic-ui-react'
+import styled from 'styled-components';
+
+const StyledWallet = styled.div`
+
+  background: rgb(237, 248, 252);
+  background-size: cover;
+  height: 100%;
+  min-height: 100vh;
+  width:calc(100% - 150px);;
+
+  div.ui.text.container {
+    padding-top: 2%;
+  }
+
+  @media only screen and (min-width: 768px) {
+    h1.ui.header {
+      font-size: 2rem;
+      font-weight:400;
+    
+    }
+  }
+`;
 
 class StudentWallet extends Component {
 
@@ -44,33 +66,36 @@ class StudentWallet extends Component {
 
   render() {
     return (
-      <Container>
-        {!this.state.fundraisingStatus && this.state.raised && <p>funding is complete!</p> }
-        {this.state.fundraisingStatus && <p>funding in progress!</p> }
-        <p>minReq: {this.state.minReq}</p>
-        <p>raised: {this.state.raised}</p>
-        {!this.state.fundraisingStatus &&
-          <Modal open={this.state.modalOpen} trigger={
-            <Button onClick={() => this.setState({modalOpen: true})}>Start Fundraising</Button>
-          }>
-            <Modal.Header>New Fundraising</Modal.Header>
-            <Modal.Content>
-              <Modal.Description>
-                <Form onSubmit={this.handleSubmit}>
-                  <Form.Field>
-                    <label>Goal amount (ETH)</label>
-                    <input placeholder='1000' type='number' onChange={(e) => this.setState({newGoal: e.target.value})} />
-                  </Form.Field>
-                  <Form.Field>
-                    <Checkbox label='I agree to the Terms and Conditions' />
-                  </Form.Field>
-                  <Button type='submit'>Submit</Button>
-                </Form>
-              </Modal.Description>
-            </Modal.Content>
-          </Modal>
-        }
-      </Container>
+    	<StyledWallet>
+        <Container>
+          {!this.state.fundraisingStatus && this.state.raised && <p>funding is complete!</p> }
+          {this.state.fundraisingStatus && <p>funding in progress!</p> }
+          <Header as='h1'>My Wallet</Header>
+          <p>minReq: {this.state.minReq}</p>
+          <p>raised: {this.state.raised}</p>
+          {!this.state.fundraisingStatus &&
+            <Modal open={this.state.modalOpen} trigger={
+              <Button onClick={() => this.setState({modalOpen: true})}>Start Fundraising</Button>
+            }>
+              <Modal.Header>New Fundraising</Modal.Header>
+              <Modal.Content>
+                <Modal.Description>
+                  <Form onSubmit={this.handleSubmit}>
+                    <Form.Field>
+                      <label>Goal amount (ETH)</label>
+                      <input placeholder='1000' type='number' onChange={(e) => this.setState({newGoal: e.target.value})} />
+                    </Form.Field>
+                    <Form.Field>
+                      <Checkbox label='I agree to the Terms and Conditions' />
+                    </Form.Field>
+                    <Button type='submit'>Submit</Button>
+                  </Form>
+                </Modal.Description>
+              </Modal.Content>
+            </Modal>
+          }
+        </Container>
+      </StyledWallet>
     )
   }
 }
