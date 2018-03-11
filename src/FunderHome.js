@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react'
 import { Link } from "react-router-dom";
-import { Input, Button, Card, Image, Container, Header } from 'semantic-ui-react'
+import { Input, Button, Card, Image, Container, Header, Segment } from 'semantic-ui-react'
 import styled from 'styled-components';
 import Grad from './images/grad.svg'
 
@@ -23,6 +23,12 @@ const StyledFunder = styled.div`
     }
   }
 
+`;
+
+const StyledCardGroup = styled(Card.Group)`
+  & {
+    margin-top:20px;
+  }
 `;
 
 const promiseWhile = (data, condition, action) => {  
@@ -87,47 +93,61 @@ class FunderHome extends Component {
   }
 
   render() {
-    const filteredStudents = this.state.students.filter(student => !this.state.uniFilter || student.uni.indexOf(this.state.uniFilter) != -1)
+    const filteredStudents = this.state.students
+      .filter(student => !this.state.uniFilter || student.uni.indexOf(this.state.uniFilter) != -1)
+      .filter(student => !this.state.countryFilter || student.country.indexOf(this.state.countryFilter) != -1)
+    
     return (
-      <div>
-        <p>Filter by university</p>
-        <Input icon='search' placeholder='Search...' onChange={(e) => this.setState({uniFilter: e.target.value}) }/>
       <StyledFunder>
+      
+        
         <Container text>
+          
             <Header as ='h1'>Find Students</Header>
-            <div>
-            { filteredStudents.map(student => <div key={student.name}>
 
-              <Card.Group>
-                <Card>
-                    <Card.Content>
-                      <Image floated='right' size='mini' src='#' />
-                      <Card.Header>
-                        {student.name}
-                      </Card.Header>
-                    
-                      <Card.Description>
+           <Segment.Group horizontal>
+            <Segment>
+              <p>Filter by University</p>
+              <Input icon='search' placeholder='Search...' onChange={(e) => this.setState({uniFilter: e.target.value}) }/>
+            </Segment>
+            <Segment>
+              <p>Filter by Country</p>
+              <Input icon='search' placeholder='Search...' onChange={(e) => this.setState({countryFilter: e.target.value}) }/>
+            </Segment>
+          </Segment.Group>
 
-                        <p>Going to {student.uni}</p>
-                        <p>From {student.country}</p>
+            
 
-                       </Card.Description>
+            { filteredStudents.map(student => <div key={student.name}>              
+                  <StyledCardGroup>
+                    <Card>
+                        <Card.Content>
+                          <Image floated='right' size='mini' src='#' />
+                          <Card.Header>
+                            {student.name}
+                          </Card.Header>
+                        
+                          <Card.Description>
 
-                    </Card.Content>
-                    <Card.Content extra>
-                        <Button basic color='green'>Fund This Student</Button>
-                    </Card.Content>
-                </Card>
+                            <p>Going to {student.uni}</p>
+                            <p>From {student.country}</p>
 
-                
-              </Card.Group>
+                           </Card.Description>
+
+                        </Card.Content>
+                        <Card.Content extra>
+                            <Button basic color='green'>Fund This Student</Button>
+                        </Card.Content>
+                    </Card>
+                  </StyledCardGroup>
               </div>)
             }
-            </div>
+
+           
+        
           </Container>
 
       </StyledFunder>
-      </div>
 
     )
   }
