@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react'
 import { Button, Checkbox, Header,Container, Form } from 'semantic-ui-react'
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 const StyledStudentForm = styled.div`
   background: rgb(237, 248, 252);
@@ -19,7 +19,6 @@ const StyledStudentForm = styled.div`
       font-size: 4rem;
     }
   }
-
 `;
 
 class StudentForm extends Component {
@@ -41,7 +40,7 @@ class StudentForm extends Component {
   }
 
   render() {
-    return(
+    return (
     <StyledStudentForm>
       <Container text>
         <Header as='h1'>Create a Student Account</Header>

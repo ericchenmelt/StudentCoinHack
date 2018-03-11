@@ -3,7 +3,6 @@ import React, { Component } from 'react'
 import { Button, Container, Header, Checkbox, Form } from 'semantic-ui-react'
 import styled from 'styled-components';
 
-
 const StyledFunderForm = styled.div`
   background: rgb(237, 248, 252);
   background-size: cover;
@@ -20,35 +19,53 @@ const StyledFunderForm = styled.div`
       font-size: 4rem;
     }
   }
-
 `;
 
+class FunderForm extends Component {
+  state = {
+    firstName: null,
+    lastName: null
+  }
 
-const FunderForm = () => <StyledFunderForm>
+  handleSubmit = async () => {
+    const { AccountsInstance, accounts, history } = this.props;
+  
+    try {
+      const result = await AccountsInstance.addLender(this.state.firstName + " " + this.state.lastName, {from: accounts[0] });  
+      history.push('/funder/home')
+    } catch (e) {
+      console.log(e)
+    }
+  }
 
-  <Container text>
-    <Header as='h1'>Create a Funder Account</Header>
+  render() {
+    return (
+      <StyledFunderForm>
+        <Container text>
+          <Header as='h1'>Create a Funder Account</Header>
 
-    <Form>
-      <Form.Field>
-        <label>First Name</label>
-        <input placeholder='First Name' />
-      </Form.Field>
+          <Form onSubmit={this.handleSubmit}>
+            <Form.Field>
+              <label>First Name</label>
+              <input placeholder='First Name' onChange={(e) => this.setState({firstName: e.target.value})}/>
+            </Form.Field>
 
-      <Form.Field>
-        <label>Last Name</label>
-        <input placeholder='Last Name' />
-      </Form.Field>
+            <Form.Field>
+              <label>Last Name</label>
+              <input placeholder='Last Name' onChange={(e) => this.setState({lastName: e.target.value})} />
+            </Form.Field>
 
-      <Form.Field>
-        <Checkbox label='I agree to the Terms and Conditions' />
-      </Form.Field>
+            <Form.Field>
+              <Checkbox label='I agree to the Terms and Conditions' />
+            </Form.Field>
 
-      <Button color='purple' size='huge' type='submit'>Submit</Button>
-    </Form>
+            <Button color='purple' size='huge' type='submit'>Submit</Button>
+          </Form>
 
-  </Container>
-
-</StyledFunderForm>
+        </Container>
+      </StyledFunderForm>
+    )
+  }
+}
 
 export default FunderForm
