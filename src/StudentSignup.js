@@ -2,33 +2,47 @@
 import React, { Component } from 'react'
 import { Button, Checkbox, Form } from 'semantic-ui-react'
 
-const StudentForm = () => (
-   <Form>
-    <Form.Field>
-      <label>First Name</label>
-      <input placeholder='First Name' />
-    </Form.Field>
+class StudentForm extends Component {
+  state = {
+    name: null,
+    country: null,
+    uni: null
+  }
 
-    <Form.Field>
-      <label>Last Name</label>
-      <input placeholder='Last Name' />
-    </Form.Field>
+  handleSubmit = async () => {
+    const { AccountsInstance, accounts, history } = this.props;
+  
+    try {
+      const result = await AccountsInstance.addStudent(this.state.name, this.state.uni, 1 /*this.state.country*/, {from: accounts[0] });  
+      history.push('/student/wallet')
+    } catch (e) {
+      console.log(e)
+    }
+  }
 
-    <Form.Field>
-      <label>Country</label>
-      <input placeholder='Country'/>
-    </Form.Field>
+  render() {
+    console.log(this.props)
+    return (
+      <Form onSubmit={this.handleSubmit}>
+        <Form.Field>
+          <label>Full Name</label>
+          <input placeholder='Full Name' onChange={(e) => this.setState({name: e.target.value})} />
+        </Form.Field>
 
-    <Form.Field>
-      <label>University</label>
-      <input placeholder='University'/>
-     </Form.Field>
+        <Form.Field>
+          <label>Country</label>
+          <input placeholder='Country' onChange={(e) => this.setState({country: e.target.value})}/>
+        </Form.Field>
 
-    <Form.Field>
-      <Checkbox label='I agree to the Terms and Conditions' />
-    </Form.Field>
-    <Button type='submit'>Submit</Button>
-  </Form>
-)
+        <Form.Field>
+          <label>University</label>
+          <input placeholder='University' onChange={(e) => this.setState({uni: e.target.value})}/>
+         </Form.Field>
+
+        <Button type='submit'>Sign up</Button>
+      </Form>
+    )
+  }
+}
 
 export default StudentForm
