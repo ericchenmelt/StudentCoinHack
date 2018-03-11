@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import { Header, Image, Modal, Container, Button, Checkbox, Statistic, Form, Progress } from 'semantic-ui-react'
+import { Header, Image, Modal, Container, Button, Checkbox, Statistic, Form, Progress, Segment } from 'semantic-ui-react'
 import styled from 'styled-components';
 
 const StyledWallet = styled.div`
@@ -73,14 +73,30 @@ class StudentWallet extends Component {
 
 	        <Header as='h1'>My Wallet</Header>
 
-	        <Progress percent={(this.state.raised/this.state.minReq)*100} />
+	        <Header as='h3'>{this.state.raised}</Header>
 
-	       <Statistic>
-		    <Statistic.Value>{this.state.minReq}</Statistic.Value>
-		    <Statistic.Label>Your Goal:</Statistic.Label>
-		    <Statistic.Value>{this.state.raised}</Statistic.Value>
-		    <Statistic.Label>Amount Raised:</Statistic.Label>
-		  </Statistic>
+	        { !this.state.fundraisingStatus && this.state.minReq && <div>
+	        	<Progress percent={(this.state.raised/this.state.minReq)*100} />
+
+
+	      		<Segment.Group horizontal>
+	               <Segment textAlign='center'>
+				       <Statistic>
+					    <Statistic.Value>{this.state.minReq}</Statistic.Value>
+					    <Statistic.Label>Your Goal</Statistic.Label>
+					   </Statistic>
+					</Segment>
+
+
+	                <Segment textAlign='center'>
+					   <Statistic>
+					    <Statistic.Value>{this.state.raised}</Statistic.Value>
+					    <Statistic.Label>Raised</Statistic.Label>
+					   </Statistic>
+					</Segment>
+				  
+			  	</Segment.Group> 
+			</div> }
 	    
 	     
         {!this.state.fundraisingStatus &&
