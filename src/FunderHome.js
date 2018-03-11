@@ -1,6 +1,29 @@
 // @flow
 import React, { Component } from 'react'
-import { Button, Card, Image } from 'semantic-ui-react'
+import { Button, Card, Image, Container, Header } from 'semantic-ui-react'
+import styled from 'styled-components';
+
+
+const StyledFunder = styled.div`
+   background: rgb(237, 248, 252);
+   background-size: cover;
+   height: 100%;
+   min-height: 100vh;
+   width:100%;
+
+   div.ui.text.container {
+    padding-top: 2%;
+   }
+
+   @media only screen and (min-width: 768px) {
+    h1.ui.header {
+      font-size: 2rem;
+      font-weight:400;
+    }
+  }
+
+`;
+
 
 const promiseWhile = (data, condition, action) => {  
   var whilst = (data) => {
@@ -64,34 +87,83 @@ class FunderHome extends Component {
 
   render() {
     return (
-      <div>
-      { this.state.students.map(student => <div key={student.name}>
+      <StyledFunder>
+        <Container text>
 
-        <Card.Group>
-          <Card>
-              <Card.Content>
-                <Image floated='right' size='mini' src='#' />
-                <Card.Header>
-                  {this.state.name}
-                </Card.Header>
-              
-                <Card.Description>
-                  {this.state.country}
-                </Card.Description>
-   
-                 <Card.Description>
-                  {this.state.university}
-                 </Card.Description>
+            <Header as ='h1'>Find Students</Header>
+            <div>
+            { this.state.students.map(student => <div key={student.name}>
 
-              </Card.Content>
-              <Card.Content extra>
-                  <Button basic color='green'>Fund This Student</Button>
-              </Card.Content>
-          </Card>
-        </Card.Group>
-        </div>)
-      }
-      </div>
+              <Card.Group>
+                <Card>
+                    <Card.Content>
+                      <Image floated='right' size='mini' src='#' />
+                      <Card.Header>
+                        {this.state.name}
+                      </Card.Header>
+                    
+                      <Card.Description>
+                        {this.state.country}
+                      </Card.Description>
+         
+                       <Card.Description>
+                        {this.state.university}
+                       </Card.Description>
+
+                    </Card.Content>
+                    <Card.Content extra>
+                        <Button basic color='green'>Fund This Student</Button>
+                    </Card.Content>
+                </Card>
+
+                <Card>
+                    <Card.Content>
+                      <Image floated='right' size='mini' src='#' />
+                      <Card.Header>
+                        {this.state.name}
+                      </Card.Header>
+                    
+                      <Card.Description>
+                        {this.state.country}
+                      </Card.Description>
+         
+                       <Card.Description>
+                        {this.state.university}
+                       </Card.Description>
+
+                    </Card.Content>
+                    <Card.Content extra>
+                        <Button basic color='green'>Fund This Student</Button>
+                    </Card.Content>
+                </Card>
+
+                <Card>
+                    <Card.Content>
+                      <Image floated='right' size='mini' src='#' />
+                      <Card.Header>
+                        {this.state.name}
+                      </Card.Header>
+                    
+                      <Card.Description>
+                        {this.state.country}
+                      </Card.Description>
+         
+                       <Card.Description>
+                        {this.state.university}
+                       </Card.Description>
+
+                    </Card.Content>
+                    <Card.Content extra>
+                        <Button basic color='green'>Fund This Student</Button>
+                    </Card.Content>
+                </Card>
+              </Card.Group>
+              </div>)
+            }
+            </div>
+          </Container>
+
+      </StyledFunder>
     )
   }
 }
