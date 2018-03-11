@@ -1,9 +1,29 @@
 // @flow
 import React, { Component } from 'react'
 import { Link } from "react-router-dom";
-import { Input, Button, Container, Header } from 'semantic-ui-react'
+import { Input, Button, Card, Image, Container, Header } from 'semantic-ui-react'
 import styled from 'styled-components';
 import Grad from './images/grad.svg'
+
+const StyledFunder = styled.div`
+   background: rgb(237, 248, 252);
+   background-size: cover;
+   height: 100%;
+   min-height: 100vh;
+   width:100%;
+
+   div.ui.text.container {
+    padding-top: 2%;
+   }
+
+   @media only screen and (min-width: 768px) {
+    h1.ui.header {
+      font-size: 2rem;
+      font-weight:400;
+    }
+  }
+
+`;
 
 const promiseWhile = (data, condition, action) => {  
   var whilst = (data) => {
@@ -72,13 +92,43 @@ class FunderHome extends Component {
       <div>
         <p>Filter by university</p>
         <Input icon='search' placeholder='Search...' onChange={(e) => this.setState({uniFilter: e.target.value}) }/>
-      { filteredStudents.map(student => <div key={student.name}>
-          <p>hi i'm {student.name} </p>
-          <p>hi i'm {student.country} </p>
-          <p>hi i'm {student.uni} </p>
-        </div>)
-      }
+      <StyledFunder>
+        <Container text>
+            <Header as ='h1'>Find Students</Header>
+            <div>
+            { filteredStudents.map(student => <div key={student.name}>
+
+              <Card.Group>
+                <Card>
+                    <Card.Content>
+                      <Image floated='right' size='mini' src='#' />
+                      <Card.Header>
+                        {student.name}
+                      </Card.Header>
+                    
+                      <Card.Description>
+
+                        <p>Going to {student.uni}</p>
+                        <p>From {student.country}</p>
+
+                       </Card.Description>
+
+                    </Card.Content>
+                    <Card.Content extra>
+                        <Button basic color='green'>Fund This Student</Button>
+                    </Card.Content>
+                </Card>
+
+                
+              </Card.Group>
+              </div>)
+            }
+            </div>
+          </Container>
+
+      </StyledFunder>
       </div>
+
     )
   }
 }
