@@ -1,10 +1,10 @@
 pragma solidity ^0.4.19;
 pragma experimental ABIEncoderV2;
 
+
 contract Accounts {
 	uint numLenders = 0;
-	uint public numStudents = 0;
-	uint public lol = 5;
+	uint numStudents = 0;
 
 	struct Student {
 		string name;
@@ -50,8 +50,6 @@ contract Accounts {
 
 		numStudents += 1;
 
-		// return sNew;
-
 	}
 	
 	
@@ -77,20 +75,6 @@ contract Accounts {
 	//function lenderFund(uint amount) {
 
 
-
-	function listStudents() public returns(Student) { 
-		var sNew = Student({
-			name: "hello",
-			university: "world",
-			studentAccount: msg.sender,
-			minimumToRaise: 100,
-			totalRaised: 0,
-			idx: 0
-		});
-		slist.push(sNew);
-		return slist[0]; 
-	}
-
 	/* hideos but :) */
 
 	function getStudentNameIdx(uint idx) public view returns(string) { return slist[idx].name; }
@@ -105,10 +89,8 @@ contract Accounts {
 	return studentMap[msg.sender].name; 
 }
 	function getLenderByAddress() public view returns(string) { return lenderMap[msg.sender].name; }
-	function getStudentByAddress(bytes addr) public view returns(string) { return studentMap[bytesToAddress(addr)].name; }
-
 
 	function getStudentCount() public view returns(uint) { return numStudents; }
-	function listLenders() public view returns(Lender[]) { return llist; }
+	function gitLenderCount() public view returns(uint) { return numLenders; }
 	
 }
