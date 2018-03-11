@@ -115,7 +115,7 @@ class StudentWallet extends Component {
             <Modal.Header>New Fundraising</Modal.Header>
             <Modal.Content>
               <Modal.Description>
-                <Form>
+                <Form onSubmit={this.handleSubmit}>
                   <Form.Field>
                     <label>Goal amount</label>
                     <input placeholder='1000 ETH' />
