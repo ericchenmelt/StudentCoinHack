@@ -109,7 +109,17 @@ contract Accounts {
 		}
 	}
 
-	//Not sure when to call safeWithdrawl
+	//Method for students to make purchases using money in escrow.
+	function withdraw(uint amtNeeded) public {
+		address beneficiary = msg.sender;
+		require(!studentMap[beneficiary].fundraising);
+		require(studentMap[beneficiary].totalRaised >= amtNeeded);
+		uint stIdx = studentMap[beneficiary].idx;
+		studentMap[beneficiary].totalRaised -= amtNeeded;
+		slist[stIdx] = studentMap[beneficiary];
+
+		beneficiary.transfer(amtNeeded);
+	}
 	
 
 	
