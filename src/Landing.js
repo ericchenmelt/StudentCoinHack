@@ -63,7 +63,6 @@ class Landing extends Component {
         this.props.history.push('/student/profile')
       } else {
         const lenderName = await this.props.AccountsInstance.getLenderNameByAddress();
-        console.log(lenderName)
         if(lenderName !== "") {
           this.props.history.push('/funder/home')
         }
