@@ -34,6 +34,7 @@ class StudentWallet extends Component {
   state = {
     minReq: 0,
     raised: 0,
+    numFunders: 0,
     fundraisingStatus: false,
     newGoal: 0,
     modalOpen: false
@@ -41,13 +42,14 @@ class StudentWallet extends Component {
 
   getMinReq = async (idx) => this.props.AccountsInstance.getStudentMinReqIdx(idx)
   getRaised = async (idx) => this.props.AccountsInstance.getStudentRaisedIdx(idx)
+  getNumFunders = async (idx) => this.props.AccountsInstance.getNumStudentFundersIdx(idx)
   getFundraisingStatus = async (idx) => this.props.AccountsInstance.getStudentFundraisingIdx(idx)
 
   async componentWillReceiveProps(nextProps) {
     if (nextProps.AccountsInstance) {
       const idx = await nextProps.AccountsInstance.getStudentIdxByAddress();
-      const [ minReq, raised, fundraisingStatus ] = await Promise.all([ this.getMinReq(idx), this.getRaised(idx), this.getFundraisingStatus(idx) ]);
-      this.setState({ minReq: minReq.c[0], raised: raised.c[0], fundraisingStatus })
+      const [ minReq, raised, numFunders, fundraisingStatus ] = await Promise.all([ this.getMinReq(idx), this.getRaised(idx), this.getNumFunders(idx), this.getFundraisingStatus(idx) ]);
+      this.setState({ minReq: minReq.c[0], raised: raised.c[0], numFunders: numFunders.c[0], fundraisingStatus })
     }
   }
 
@@ -100,12 +102,18 @@ class StudentWallet extends Component {
 					</Segment>
 
 
-	                <Segment textAlign='center'>
+	         <Segment textAlign='center'>
 					   <Statistic>
 					    <Statistic.Value>{this.state.raised}</Statistic.Value>
 					    <Statistic.Label>Raised</Statistic.Label>
 					   </Statistic>
 					</Segment>
+          <Segment textAlign='center'>
+             <Statistic>
+              <Statistic.Value>{this.state.numFunders}</Statistic.Value>
+              <Statistic.Label>Funders</Statistic.Label>
+             </Statistic>
+          </Segment>
 				  
 			  	</Segment.Group> 
 			</div> 
