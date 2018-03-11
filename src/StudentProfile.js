@@ -4,18 +4,15 @@ import { Header, Container, Button, Checkbox, Form } from 'semantic-ui-react'
 import styled from 'styled-components';
 
 const StyledProfile = styled.div`
-
   background: rgb(237, 248, 252);
   background-size: cover;
   height: 100%;
   min-height: 100vh;
   width:calc(100% - 150px);;
 
-
   div.ui.text.container {
     padding-top: 2%;
   }
-
 
   @media only screen and (min-width: 768px) {
     h1.ui.header {
@@ -26,8 +23,6 @@ const StyledProfile = styled.div`
   }
 
 `;
-
-
 
 class StudentProfile extends Component {
   state = {
