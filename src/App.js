@@ -58,7 +58,7 @@ class App extends Component {
 
           <Route exact path="/funder/signup" render={(props) => ( <FunderSignup {...props} {...this.state} /> )} />
           {/*<Route exact path="/funder/home" component={FunderHome} />*/}
-          <Route exact path="/test" component={Test} />
+          {/*<Route exact path="/test" component={Test} />*/}
         </div>
       </Router>
     )
