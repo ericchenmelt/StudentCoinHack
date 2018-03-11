@@ -42,16 +42,23 @@ class FunderHome extends Component {
   }
 
   getAllStudents = async (nextProps) => {
-    console.log('all students')
     const result = await nextProps.AccountsInstance.getStudentCount();
     const count = result.c[0]
-
     const students = []
 
-    const getStudent = (idx) => {
-      return this.getStudentName(idx).then((name) => { students.push({ name: 'student-name', country: 'usa', uni: "columbia" }) })
+    const getStudent = async (idx) => {
+      return new Promise(async (resolve, reject) => {
+        const [ name, country, uni ] = await Promise.all([ 
+          this.getStudentName(idx, {from: nextProps.accounts[0] }), 
+          this.getStudentUni(idx, {from: nextProps.accounts[0] }), 
+          this.getStudentCountry(idx, {from: nextProps.accounts[0] })
+        ]);
+        const newStudent = { name, country, uni }
+        students.push(newStudent)
+        resolve(idx + 1);
+      });
     }
-    await promiseWhile(0, i => i <= count, getStudent);
+    await promiseWhile(0, i => i < count, getStudent);
     this.setState({ students })
   }
 
