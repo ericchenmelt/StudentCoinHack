@@ -56,12 +56,14 @@ contract Accounts {
 		numStudents += 1;
 
 	}
-	
-	// function start fundraising 
-	// up
-	// 	fundatin  = trie 
-	// 	update student 
-	// 	minimumToRaise: minRaise,
+
+	function startFundraising(uint fundGoal) public{
+		address curStudent = msg.sender;
+		uint stIdx = studentMap[curStudent].idx;
+		studentMap[curStudent].fundraising = true;
+		studentMap[curStudent].minimumToRaise = fundGoal;
+		slist[stIdx] = studentMap[curStudent];
+	}
 	
 	function addLender(string lName)
 		public returns (Lender){
@@ -82,21 +84,28 @@ contract Accounts {
 
 	}
 
-	function fund(address stdntAcct) public payable {
-		//require(!fundraising);
+	function fund(uint sIdx) public payable {
+		address stdntAcct = slist[sIdx].studentAccount;
 		uint amount = msg.value;
 		require(lenderMap[msg.sender].balance >= amount);
 		require(studentMap[stdntAcct].fundraising);
+		uint lIdx = lenderMap[msg.sender].idx;
 		pledges[msg.sender][stdntAcct] += amount;
 		studentMap[stdntAcct].totalRaised += amount;
 		lenderMap[msg.sender].balance -= amount;
 		lenderMap[msg.sender].totalDonated += amount;
+
+		llist[lIdx] = lenderMap[msg.sender];
+		slist[sIdx] = studentMap[stdntAcct];
+
 		checkGoalReached(stdntAcct);
 	}
 	
 	function checkGoalReached(address stdntAcct) public {
 		if(studentMap[stdntAcct].totalRaised >= studentMap[stdntAcct].minimumToRaise){
 			studentMap[stdntAcct].fundraising = true;
+			uint curIdx = studentMap[stdntAcct].idx;
+			slist[curIdx] = studentMap[stdntAcct];
 		}
 	}
 
