@@ -119,9 +119,8 @@ contract Accounts {
 
 	function getStudentNameIdx(uint idx) public view returns(string) { return slist[idx].name; }
 	function getStudentUniIdx(uint idx) public view returns(string) { return slist[idx].university; }
-	function getStudentAccIdx(uint idx) public view returns(address) {
-		
-		return slist[idx].studentAccount; }
+	function getStudentCountryIdx(uint idx) public view returns(string) { return slist[idx].country; }
+	function getStudentAccIdx(uint idx) public view returns(address) { return slist[idx].studentAccount; }
 	function getStudentMinReqIdx(uint idx) public view returns(uint) { return slist[idx].minimumToRaise; }
 	function getStudentRaisedIdx(uint idx) public view returns(uint) { return slist[idx].totalRaised; }
 	//function listStudents() public returns(Student[]) { return slist; }

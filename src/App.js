@@ -7,9 +7,11 @@ import getWeb3 from './utils/getWeb3'
 import Landing from './Landing'
 import StudentSignup from './StudentSignup'
 import FunderSignup from './FunderSignup'
-import Test from './Test'
+import SideBar from './SideBar'
+import StudentWallet from './StudentWallet'
+import StudentProfile from './StudentProfile'
 
-const StudentWallet = () => <div>hi</div>
+import Test from './Test'
 
 class App extends Component {
   state = {
@@ -46,8 +48,11 @@ class App extends Component {
         <div>
           <Route exact path="/" render={(props) => ( <Landing {...props} {...this.state} /> )} />
           <Route exact path="/student/signup" render={(props) => ( <StudentSignup {...props} {...this.state} /> )} />
-          {/*<Route exact path="/student/profile" component={StudentProfile} />*/}
-          <Route exact path="/student/wallet" component={StudentWallet} />
+          <SideBar>
+            <Route exact path="/student/wallet" component={StudentWallet} />
+            <Route exact path="/student/profile" component={StudentProfile} />
+          </SideBar>
+          
           {/*<Route exact path="/student/myfunders" component={StudentMyFunders} />
           <Route exact path="/student/transactions" component={StudentTransactions} />}*/}
 
