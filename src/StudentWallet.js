@@ -35,9 +35,10 @@ class StudentWallet extends Component {
     minReq: 0,
     raised: 0,
     numFunders: 0,
-    fundraisingStatus: false,
+    fundraisingStatus: null,
     newGoal: 0,
-    modalOpen: false
+    modalOpen: false,
+    status: 'newUser'
   }
 
   getMinReq = async (idx) => this.props.AccountsInstance.getStudentMinReqIdx(idx)
@@ -47,15 +48,31 @@ class StudentWallet extends Component {
 
   async componentWillReceiveProps(nextProps) {
     if (nextProps.AccountsInstance) {
-      const idx = await nextProps.AccountsInstance.getStudentIdxByAddress();
+      const result = await nextProps.AccountsInstance.getStudentIdxByAddress();
+      const idx = result.c[0]
+      console.log('idx', idx)
       const [ minReq, raised, numFunders, fundraisingStatus ] = await Promise.all([ this.getMinReq(idx), this.getRaised(idx), this.getNumFunders(idx), this.getFundraisingStatus(idx) ]);
       this.setState({ minReq: (minReq.c[0]/10000), raised: (raised.c[0] / 10000), numFunders: numFunders.c[0], fundraisingStatus })
-      console.log(raised)
+      console.log({ minReq: (minReq.c[0]/10000), raised: (raised.c[0] / 10000), numFunders: numFunders.c[0], fundraisingStatus })
+
+      let status;
+      if(minReq == 0 && raised == 0 && fundraisingStatus == false) {
+        status = "newUser"
+      } else {
+        if(raised >= minReq) {
+          status = "complete"
+          console.log("complere!!!!")
+        } else {
+          status = "inProgress"
+        }  
+      }
+      console.log(status)
+      this.setState({status})
     }
   }
 
   async componentWillMount() {
-    if(this.state.name === null) {
+    if(this.state.fundraisingStatus === null) {
       this.componentWillReceiveProps(this.props)
     }
   }
@@ -75,61 +92,47 @@ class StudentWallet extends Component {
   }
 
   render() {
-    const percent = (this.state.raised + 1)/(this.state.minReq + 1)*100
+    const percent = (this.state.raised + 0.000000001)/(this.state.minReq + 0.000000001)*100
 
     return (
     	<StyledWallet>
-
-	      
-      <Container text>
-
-	        <Header as='h1'>My Wallet</Header>
-
-            
-	        <p>funding is complete!</p>
-            <p>Funding in Progress!</p> 
-    
-             <div>
-               <Progress percent={percent} />
-             </div>
-
-	        <div>
-
-	      		<Segment.Group horizontal>
-	               <Segment textAlign='center'>
-				       <Statistic>
-					    <Statistic.Value>{this.state.minReq} ETH</Statistic.Value>
-					    <Statistic.Label>Your Goal</Statistic.Label>
-					   </Statistic>
-					</Segment>
-
-
-	         <Segment textAlign='center'>
-					   <Statistic>
-					    <Statistic.Value>{this.state.raised} ETH</Statistic.Value>
-					    <Statistic.Label>Raised</Statistic.Label>
-					   </Statistic>
-					</Segment>
-          <Segment textAlign='center'>
-             <Statistic>
-              <Statistic.Value>{this.state.numFunders}</Statistic.Value>
-              <Statistic.Label>Funders</Statistic.Label>
-             </Statistic>
-          </Segment>
-				  
-			  	</Segment.Group> 
-			</div> 
-		   
-	    
-	     
-        
-          <Modal trigger={
+        <Container text>
+          <Header as='h1'>My Wallet</Header>
+          <p>{this.state.status == "inProgress" ? "Funding is in progress" : ""}{this.state.status == "Funding is complete" ? "complete" : ""}
+          {this.state.status == "newUser" ? "Welcome new user, click the button to start raising funds" : ""}</p>
+          { this.state.status != "newUser" ? <div>
+              <div>
+                <Progress percent={percent} />
+              </div> 
+              <div>
+              <Segment.Group horizontal>
+                <Segment textAlign='center'>
+                  <Statistic>
+                    <Statistic.Value>{this.state.minReq} ETH</Statistic.Value>
+                    <Statistic.Label>Your Goal</Statistic.Label>
+                  </Statistic>
+                  </Segment>
+                    <Segment textAlign='center'>
+                  <Statistic>
+                    <Statistic.Value>{this.state.raised} ETH</Statistic.Value>
+                    <Statistic.Label>Raised</Statistic.Label>
+                  </Statistic>
+                  </Segment>
+                  <Segment textAlign='center'>
+                  <Statistic>
+                    <Statistic.Value>{this.state.numFunders}</Statistic.Value>
+                    <Statistic.Label>Funders</Statistic.Label>
+                  </Statistic>
+                </Segment>
+              </Segment.Group> 
+            </div>
+          </div> : "" }
+          { this.state.status != "inProgress" ? <Modal trigger={
             <Button>Start Fundraising</Button>
           }>
             <Modal.Header>New Fundraising</Modal.Header>
             <Modal.Content>
               <Modal.Description>
-
                 <Form onSubmit={this.handleSubmit}>
                   <Form.Field>
                     <label>Goal amount</label>
@@ -140,13 +143,10 @@ class StudentWallet extends Component {
                   </Form.Field>
                   <Button type='submit'>Submit</Button>
                 </Form>
-
               </Modal.Description>
             </Modal.Content>
-          </Modal>
-        
-
-      </Container>
+          </Modal> : ""}
+        </Container>
       </StyledWallet>
     )
   }
