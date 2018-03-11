@@ -1,5 +1,9 @@
 // @flow
 import React, { Component } from 'react'
+import { Link } from "react-router-dom";
+import { Input, Button, Container, Header } from 'semantic-ui-react'
+import styled from 'styled-components';
+import Grad from './images/grad.svg'
 
 const promiseWhile = (data, condition, action) => {  
   var whilst = (data) => {
@@ -14,7 +18,8 @@ class FunderHome extends Component {
 
   state = {
     name: null,
-    students: []
+    students: [],
+    uniFilter: null
   }
 
   getName = async (idx, params) => this.props.AccountsInstance.getLenderNameByAddress(idx, params)
@@ -62,9 +67,12 @@ class FunderHome extends Component {
   }
 
   render() {
+    const filteredStudents = this.state.students.filter(student => !this.state.uniFilter || student.uni.indexOf(this.state.uniFilter) != -1)
     return (
       <div>
-      { this.state.students.map(student => <div key={student.name}>
+        <p>Filter by university</p>
+        <Input icon='search' placeholder='Search...' onChange={(e) => this.setState({uniFilter: e.target.value}) }/>
+      { filteredStudents.map(student => <div key={student.name}>
           <p>hi i'm {student.name} </p>
           <p>hi i'm {student.country} </p>
           <p>hi i'm {student.uni} </p>
