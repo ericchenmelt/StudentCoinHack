@@ -45,7 +45,6 @@ class App extends Component {
   }
 
   render() {
-    const { web3 } = this.state;
     return (
       <Router>
         <div>

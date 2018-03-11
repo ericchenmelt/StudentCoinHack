@@ -28,23 +28,31 @@ const StyledTransactions = styled.div`
 
 class StudentTransactions extends Component {
   state = {
-    time: null,
-    from: null,
-    to: null,
-    amount: null
+    txs: null
   }
 
-  // handleSubmit = async () => {
-  //   const { AccountsInstance, accounts, history } = this.props;
-  
-  //   try {
-  //     const result = await AccountsInstance.addStudent(this.state.name, this.state.uni, this.state.country, {from: accounts[0] });  
-  //     history.push('/student/wallet')
-  //   } catch (e) {
-  //     console.log(e)
-  //   }
-  // }
+  async componentWillReceiveProps(nextProps) {
+    if (nextProps.web3) {
+      const eth = nextProps.web3.eth;
+      var n = eth.blocknumber;
 
+      var txs = [];
+      for(var i = 0; i < n; i++) {
+          var block = eth.getBlock(i, true);
+          for(var j = 0; j < block.transactions; j++) {
+              if( block.transactions[j].to == "0x7A33615d12A12f58b25c653dc5E44188D44f6898" || block.transactions[j].from == "0x7A33615d12A12f58b25c653dc5E44188D44f6898" )
+                  txs.push(block.transactions[j]);
+          }
+      }
+      console.log(txs)
+    }
+  }
+
+  async componentWillMount() {
+    if(this.state.txs === null) {
+      this.componentWillReceiveProps(this.props)
+    }
+  }
   render() {
     return(
     <StyledTransactions>
