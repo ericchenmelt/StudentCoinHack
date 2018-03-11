@@ -7,8 +7,9 @@ class StudentWallet extends Component {
   state = {
     minReq: 0,
     raised: 0,
-    fundraisingStatus: false
-
+    fundraisingStatus: false,
+    newGoal: 0,
+    modalOpen: false
   }
 
   getMinReq = async (idx) => this.props.AccountsInstance.getStudentMinReqIdx(idx)
@@ -32,30 +33,33 @@ class StudentWallet extends Component {
   handleSubmit = async () => {
     const { AccountsInstance, accounts, history } = this.props;
   
-    // try {
-    //   const result = await AccountsInstance.addStudent(this.state.name, this.state.uni, this.state.country, {from: accounts[0] });  
-    //   history.push('/student/wallet')
-    // } catch (e) {
-    //   console.log(e)
-    // }
+    try {
+      const result = await AccountsInstance.startFundraising(this.state.newGoal, {from: accounts[0], gas: 6385876 });  
+      this.setState({modalOpen: false})
+      this.componentWillReceiveProps(this.props)
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   render() {
     return (
       <Container>
+        {!this.state.fundraisingStatus && this.state.raised && <p>funding is complete!</p> }
+        {this.state.fundraisingStatus && <p>funding in progress!</p> }
         <p>minReq: {this.state.minReq}</p>
         <p>raised: {this.state.raised}</p>
         {!this.state.fundraisingStatus &&
-          <Modal trigger={
-            <Button>Start Fundraising</Button>
+          <Modal open={this.state.modalOpen} trigger={
+            <Button onClick={() => this.setState({modalOpen: true})}>Start Fundraising</Button>
           }>
             <Modal.Header>New Fundraising</Modal.Header>
             <Modal.Content>
               <Modal.Description>
-                <Form>
+                <Form onSubmit={this.handleSubmit}>
                   <Form.Field>
-                    <label>Goal amount</label>
-                    <input placeholder='1000 ETH' />
+                    <label>Goal amount (ETH)</label>
+                    <input placeholder='1000' type='number' onChange={(e) => this.setState({newGoal: e.target.value})} />
                   </Form.Field>
                   <Form.Field>
                     <Checkbox label='I agree to the Terms and Conditions' />
@@ -66,7 +70,6 @@ class StudentWallet extends Component {
             </Modal.Content>
           </Modal>
         }
-
       </Container>
     )
   }
