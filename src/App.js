@@ -11,10 +11,7 @@ import SideBar from './SideBar'
 import StudentWallet from './StudentWallet'
 import StudentProfile from './StudentProfile'
 import StudentTransactions from './StudentTransactions'
-
-const FunderHome = () => <div>hi um funder home</div>
-
-// import Test from './Test'
+import FunderHome from './FunderHome'
 
 class App extends Component {
   state = {
@@ -56,7 +53,7 @@ class App extends Component {
           <Route exact path="/student/transactions" render={(props) => ( <SideBar><StudentTransactions {...props} {...this.state} /></SideBar> )} />
 
           <Route exact path="/funder/signup" render={(props) => ( <FunderSignup {...props} {...this.state} /> )} />
-          <Route exact path="/funder/home" component={FunderHome} />
+          <Route exact path="/funder/home" render={(props) => ( <FunderHome {...props} {...this.state} /> )} />
           {/*<Route exact path="/test" component={Test} />*/}
         </div>
       </Router>
