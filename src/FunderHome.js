@@ -1,5 +1,6 @@
 // @flow
 import React, { Component } from 'react'
+import { Button, Card, Image } from 'semantic-ui-react'
 
 const promiseWhile = (data, condition, action) => {  
   var whilst = (data) => {
@@ -58,9 +59,29 @@ class FunderHome extends Component {
     return (
       <div>
       { this.state.students.map(student => <div key={student.name}>
-          <p>hi i'm {student.name} </p>
-          <p>hi i'm {student.country} </p>
-          <p>hi i'm {student.uni} </p>
+
+        <Card.Group>
+          <Card>
+              <Card.Content>
+                <Image floated='right' size='mini' src='#' />
+                <Card.Header>
+                  {this.state.name}
+                </Card.Header>
+              
+                <Card.Description>
+                  {this.state.country}
+                </Card.Description>
+   
+                 <Card.Description>
+                  {this.state.university}
+                 </Card.Description>
+
+              </Card.Content>
+              <Card.Content extra>
+                  <Button basic color='green'>Fund This Student</Button>
+              </Card.Content>
+          </Card>
+        </Card.Group>
         </div>)
       }
       </div>
