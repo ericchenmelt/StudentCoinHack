@@ -39,7 +39,6 @@ class FunderHome extends Component {
     console.log('all students')
     const result = await nextProps.AccountsInstance.getStudentCount();
     const count = result.c[0]
-
   }
 
   render() {

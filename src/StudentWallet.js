@@ -85,11 +85,9 @@ class StudentWallet extends Component {
             {this.state.fundraisingStatus && <p>Funding in Progress!</p> }
 	        
 
-	        {!this.state.fundraisingStatus && this.state.minReq && <div>
+	        {this.state.minReq && <div>
 
 	        	<Progress percent={percent} />
-
-
 	      		<Segment.Group horizontal>
 	               <Segment textAlign='center'>
 				       <Statistic>
