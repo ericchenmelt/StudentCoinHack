@@ -35,6 +35,12 @@ class SideBar extends Component {
               <Icon name='camera' />
               Channels
             </Menu.Item>
+
+            <Menu.Item name='exchange' active={pathname == '/student/transactions'} as={Link} to='/student/transactions'> 
+              <Icon name='exchange'/>
+              Transactions
+            </Menu.Item>
+
           </Sidebar>
           <Sidebar.Pusher>
             <Wrapper>
