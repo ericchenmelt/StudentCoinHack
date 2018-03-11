@@ -78,7 +78,6 @@ contract Accounts {
 
 
 
-
 	function listStudents() public returns(Student) { 
 		var sNew = Student({
 			name: "hello",
@@ -91,7 +90,25 @@ contract Accounts {
 		slist.push(sNew);
 		return slist[0]; 
 	}
+
+	/* hideos but :) */
+
+	function getStudentNameIdx(uint idx) public view returns(string) { return slist[idx].name; }
+	function getStudentUniIdx(uint idx) public view returns(string) { return slist[idx].university; }
+	function getStudentAccIdx(uint idx) public view returns(address) {
+		
+		return slist[idx].studentAccount; }
+	function getStudentMinReqIdx(uint idx) public view returns(uint) { return slist[idx].minimumToRaise; }
+	function getStudentRaisedIdx(uint idx) public view returns(uint) { return slist[idx].totalRaised; }
+
+	function getStudentByAddress() public view returns(string) {
+	return studentMap[msg.sender].name; 
+}
+	function getLenderByAddress() public view returns(string) { return lenderMap[msg.sender].name; }
+	function getStudentByAddress(bytes addr) public view returns(string) { return studentMap[bytesToAddress(addr)].name; }
+
+
 	function getStudentCount() public view returns(uint) { return numStudents; }
 	function listLenders() public view returns(Lender[]) { return llist; }
-
+	
 }
