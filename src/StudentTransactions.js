@@ -9,11 +9,9 @@ const StyledTransactions = styled.div`
   min-height: 100vh;
   width:calc(100% - 150px);
 
-
   div.ui.text.container {
     padding-top: 2%;
   }
-
 
   @media only screen and (min-width: 768px) {
     h1.ui.header {
@@ -22,9 +20,7 @@ const StyledTransactions = styled.div`
       margin-top:0;
     }
   }
-
 `;
-
 
 class StudentTransactions extends Component {
   state = {
@@ -77,14 +73,9 @@ class StudentTransactions extends Component {
 		        <Table.HeaderCell>300</Table.HeaderCell>
 		        </Table.Row>
             </Table.Body>
-
-            
-
         </Table>
       </Container>
-
     </StyledTransactions>
-
     )
   }
 }
