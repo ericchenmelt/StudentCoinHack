@@ -86,14 +86,12 @@ class StudentWallet extends Component {
             
 	        {!this.state.fundraisingStatus && this.state.raised && <p>funding is complete!</p> }
             {this.state.fundraisingStatus && <p>Funding in Progress!</p> }
-
-	        <div>
-
-	        	<Progress percent={percent} />	        
+    
+             <div>
+               <Progress percent={percent} />
+             </div>
 
 	        {this.state.minReq && <div>
-
-	        	<Progress percent={percent} />
 
 	      		<Segment.Group horizontal>
 	               <Segment textAlign='center'>
@@ -113,6 +111,7 @@ class StudentWallet extends Component {
 				  
 			  	</Segment.Group> 
 			</div> 
+		   }
 	    
 	     
         {!this.state.fundraisingStatus &&
@@ -122,6 +121,7 @@ class StudentWallet extends Component {
             <Modal.Header>New Fundraising</Modal.Header>
             <Modal.Content>
               <Modal.Description>
+
                 <Form onSubmit={this.handleSubmit}>
                   <Form.Field>
                     <label>Goal amount</label>
@@ -132,6 +132,7 @@ class StudentWallet extends Component {
                   </Form.Field>
                   <Button type='submit'>Submit</Button>
                 </Form>
+
               </Modal.Description>
             </Modal.Content>
           </Modal>
