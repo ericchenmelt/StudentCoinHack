@@ -5,6 +5,7 @@ pragma experimental ABIEncoderV2;
 contract Accounts {
 	uint numLenders = 0;
 	uint numStudents = 0;
+	mapping(address => mapping (address => uint)) public pledges;
 
 	struct Student {
 		string name;
@@ -13,6 +14,7 @@ contract Accounts {
 		uint minimumToRaise;
 		uint totalRaised;
 		uint idx;
+		bool fundraising;
 	}
 	
 	struct Lender {
@@ -42,7 +44,8 @@ contract Accounts {
 			studentAccount: msg.sender,
 			minimumToRaise: minRaise,
 			totalRaised: 0,
-			idx: numStudents
+			idx: numStudents,
+			fundraising: true
 		});
 
 		studentMap[msg.sender] = sNew;
@@ -58,7 +61,7 @@ contract Accounts {
 		var lNew = Lender({
 			name: lName,
 			acc: msg.sender,
-			balance: 0,
+			balance: msg.sender.balance,
 			totalDonated: 0,
 			idx: numLenders
 		});
@@ -72,8 +75,29 @@ contract Accounts {
 
 	}
 
-	//function lenderFund(uint amount) {
+	function fund(address stdntAcct) public payable {
+		//require(!fundraising);
+		uint amount = msg.value;
+		require(lenderMap[msg.sender].balance >= amount);
+		require(studentMap[stdntAcct].fundraising);
+		pledges[msg.sender][stdntAcct] += amount;
+		studentMap[stdntAcct].totalRaised += amount;
+		lenderMap[msg.sender].balance -= amount;
+		lenderMap[msg.sender].totalDonated += amount;
+		checkGoalReached(stdntAcct);
+	}
+	
+	function checkGoalReached(address stdntAcct) public {
+		if(studentMap[stdntAcct].totalRaised >= studentMap[stdntAcct].minimumToRaise){
+			studentMap[stdntAcct].fundraising = true;
+		}
+	}
 
+	//Not sure when to call safeWithdrawl
+	
+
+	
+	//function listStudents() public returns(Student[]) { return slist; }
 
 	/* hideos but :) */
 
@@ -84,6 +108,7 @@ contract Accounts {
 		return slist[idx].studentAccount; }
 	function getStudentMinReqIdx(uint idx) public view returns(uint) { return slist[idx].minimumToRaise; }
 	function getStudentRaisedIdx(uint idx) public view returns(uint) { return slist[idx].totalRaised; }
+	//function listStudents() public returns(Student[]) { return slist; }
 
 	function getStudentByAddress() public view returns(string) {
 	return studentMap[msg.sender].name; 
