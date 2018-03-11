@@ -59,7 +59,7 @@ class StudentTransactions extends Component {
       <Container text>
         <Header as='h1'>Transaction History</Header>
 
-        <Table>
+        <Table celled>
 	        <Table.Header>
 		        <Table.Row>
 		        <Table.HeaderCell>Time</Table.HeaderCell>
@@ -71,10 +71,10 @@ class StudentTransactions extends Component {
 
             <Table.Body>
  			    <Table.Row>
-		        <Table.HeaderCell>03/11/2018</Table.HeaderCell>
-		        <Table.HeaderCell>Japan</Table.HeaderCell>
-		        <Table.HeaderCell>Canada</Table.HeaderCell>
-		        <Table.HeaderCell>300</Table.HeaderCell>
+		        <Table.HeaderCell textAlign='center'>03/11/2018</Table.HeaderCell>
+		        <Table.HeaderCell textAlign='center'>Japan</Table.HeaderCell>
+		        <Table.HeaderCell textAlign='center'>Canada</Table.HeaderCell>
+		        <Table.HeaderCell textAlign='center'>300</Table.HeaderCell>
 		        </Table.Row>
             </Table.Body>
 
