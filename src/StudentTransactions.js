@@ -58,8 +58,8 @@ class StudentTransactions extends Component {
         <Table celled>
 	        <Table.Header>
 		        <Table.Row>
-		        <Table.HeaderCell>Time</Table.HeaderCell>
-		        <Table.HeaderCell>From</Table.HeaderCell>
+		        <Table.HeaderCell color='green'>Time</Table.HeaderCell>
+		        <Table.HeaderCell >From</Table.HeaderCell>
 		        <Table.HeaderCell>To</Table.HeaderCell>
 		        <Table.HeaderCell>Amount</Table.HeaderCell>
 		      </Table.Row>
