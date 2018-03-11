@@ -89,18 +89,19 @@ Accounts.deployed().then(function(instance){return instance.addStudent("Martin S
 
 Accounts.deployed().then(function(instance){return instance.addLender("Raphael", {from: account1});}).then(console.log);
 
-Accounts.deployed().then(function(instance){return instance.startFundraising(100000, {from: account2});}).then(console.log);
+Accounts.deployed().then(function(instance){return instance.startFundraising(1000, {from: account2});}).then(console.log);
 
 Accounts.deployed().then(function(instance){return instance.getLenderBalanceIdx(0, {from: account1});}).then(console.log);
 
 Accounts.deployed().then(function(instance){return instance.getStudentRaisedIdx(0, {from: account2});}).then(console.log);
 
-Accounts.deployed().then(function(instance){return instance.fund(0, {from: account1, value: 400, gas:900000});}).then(console.log);
+Accounts.deployed().then(function(instance){return instance.fund(0, {from: account1, value: 1000, gas:900000});}).then(console.log);
 
 Accounts.deployed().then(function(instance){return instance.getStudentRaisedIdx(0, {from: account2});}).then(console.log);
 
-web3.fromWei(web3.eth.getBalance(account1));
-web3.fromWei(web3.eth.getBalance(account2));
-
 Accounts.deployed().then(function(instance){return instance.getContractBalance()}).then(console.log);
+
+Accounts.deployed().then(function(instance){return instance.withdraw(250, {from: account2})}).then(console.log);
+
+Accounts.deployed().then(function(instance){return instance.getStudentRaisedIdx(0, {from: account2});}).then(console.log);
 ```
