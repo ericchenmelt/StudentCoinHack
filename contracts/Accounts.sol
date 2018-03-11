@@ -103,7 +103,7 @@ contract Accounts {
 	
 	function checkGoalReached(address stdntAcct) public {
 		if(studentMap[stdntAcct].totalRaised >= studentMap[stdntAcct].minimumToRaise){
-			studentMap[stdntAcct].fundraising = true;
+			studentMap[stdntAcct].fundraising = false;
 			uint curIdx = studentMap[stdntAcct].idx;
 			slist[curIdx] = studentMap[stdntAcct];
 		}
@@ -125,12 +125,13 @@ contract Accounts {
 	function getStudentRaisedIdx(uint idx) public view returns(uint) { return slist[idx].totalRaised; }
 	//function listStudents() public returns(Student[]) { return slist; }
 
-	function getStudentByAddress() public view returns(string) {
-	return studentMap[msg.sender].name; 
-}
+	function getStudentByAddress() public view returns(string) { return studentMap[msg.sender].name; }
 	function getLenderByAddress() public view returns(string) { return lenderMap[msg.sender].name; }
 
 	function getStudentCount() public view returns(uint) { return numStudents; }
 	function gitLenderCount() public view returns(uint) { return numLenders; }
+	function getLenderBalanceIdx(uint lidx) public view returns(uint) {return llist[lidx].balance;}
+
+	function getContractBalance() public view returns(uint) {return this.balance;}
 	
 }
