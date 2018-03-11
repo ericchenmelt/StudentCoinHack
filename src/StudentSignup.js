@@ -14,7 +14,6 @@ const StyledStudentForm = styled.div`
     padding-top: 10%;
   }
 
-
   @media only screen and (min-width: 768px) {
     h1.ui.header {
       font-size: 4rem;
@@ -22,7 +21,6 @@ const StyledStudentForm = styled.div`
   }
 
 `;
-
 
 class StudentForm extends Component {
   state = {
@@ -49,26 +47,25 @@ class StudentForm extends Component {
         <Header as='h1'>Create a Student Account</Header>
 
         <Form onSubmit={this.handleSubmit}>
-        <Form.Field>
-        <label>Full Name</label>
-        <input placeholder='First Name' onChange={(e) => this.setState({name: e.target.value})} />
-        </Form.Field>
+          <Form.Field>
+            <label>Full Name</label>
+            <input placeholder='First Name' onChange={(e) => this.setState({name: e.target.value})} />
+          </Form.Field>
 
-        <Form.Field>
-        <label>Country</label>
-        <input placeholder='Country' onChange={(e) => this.setState({country: e.target.value})}/>
-        </Form.Field>
+          <Form.Field>
+            <label>Country</label>
+            <input placeholder='Country' onChange={(e) => this.setState({country: e.target.value})}/>
+          </Form.Field>
 
-        <Form.Field>
-        <label>University</label>
-        <input placeholder='University' onChange={(e) => this.setState({uni: e.target.value})}/>
-        </Form.Field>
+          <Form.Field>
+            <label>University</label>
+            <input placeholder='University' onChange={(e) => this.setState({uni: e.target.value})}/>
+          </Form.Field>
 
-        <Form.Field>
-        <Checkbox label='I agree to the Terms and Conditions' />
-        </Form.Field>
-        <Button color='green' size='huge' type='submit'>Sign Up</Button>
-
+          <Form.Field>
+            <Checkbox label='I agree to the Terms and Conditions' />
+          </Form.Field>
+          <Button color='green' size='huge' type='submit'>Sign Up</Button>
         </Form>
       </Container>
 

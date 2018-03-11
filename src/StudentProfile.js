@@ -14,15 +14,21 @@ class StudentProfile extends Component {
   getCountry = async (idx) => this.props.AccountsInstance.getStudentCountryIdx(idx)
   getAcc = async (idx) => this.props.AccountsInstance.getStudentAccIdx(idx)
 
-  willLoadContent = async () => {
-    if(this.props.web3 && this.props.AccountsInstance) {
-      const [ name, uni, country, acc ] = await Promise.all([ this.getName(0), this.getUni(0), this.getCountry(0), this.getAcc(0) ]);
+  async componentWillReceiveProps(nextProps) {
+    if (nextProps.AccountsInstance) {
+      const idx = await nextProps.AccountsInstance.getStudentIdxByAddress();
+      const [ name, uni, country, acc ] = await Promise.all([ this.getName(idx), this.getUni(idx), this.getCountry(idx), this.getAcc(idx) ]);
       this.setState({ name, uni, country })
     }
   }
 
+  async componentWillMount() {
+    if(this.state.name === null) {
+      this.componentWillReceiveProps(this.props)
+    }
+  }
+
   render() {
-    this.willLoadContent()
     const { name, uni, country } = this.state;
     return (
       <Container>

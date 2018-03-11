@@ -48,11 +48,8 @@ class App extends Component {
         <div>
           <Route exact path="/" render={(props) => ( <Landing {...props} {...this.state} /> )} />
           <Route exact path="/student/signup" render={(props) => ( <StudentSignup {...props} {...this.state} /> )} />
-          <SideBar>
-            <Route exact path="/student/wallet" render={(props) => ( <StudentWallet {...props} {...this.state} /> )} />
-            <Route exact path="/student/profile" render={(props) => ( <StudentProfile {...props} {...this.state} /> )} />
-          </SideBar>
-          
+          <Route exact path="/student/wallet" render={(props) => ( <SideBar><StudentWallet {...props} {...this.state} /></SideBar> )} />
+          <Route exact path="/student/profile" render={(props) => ( <SideBar><StudentProfile {...props} {...this.state} /></SideBar> )} />
           {/*<Route exact path="/student/myfunders" component={StudentMyFunders} />
           <Route exact path="/student/transactions" component={StudentTransactions} />}*/}
 

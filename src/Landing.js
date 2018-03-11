@@ -60,7 +60,7 @@ class Landing extends Component {
     if(this.props.web3 && this.props.AccountsInstance) {
       const result = await this.props.AccountsInstance.getStudentByAddress();
       if(result !== "") {
-        this.props.history.push('/student/wallet')
+        this.props.history.push('/student/profile')
       }
     }
   }

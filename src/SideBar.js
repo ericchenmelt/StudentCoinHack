@@ -8,6 +8,12 @@ const Wrapper = styled.div`
   height: 100%;
   min-height: 100vh;
   width: 100%;  
+  
+  padding-top: 20px;
+
+  @media only screen and (min-width: 768px) {
+    padding-top: 40px;
+  }
 `;
 
 class SideBar extends Component {
