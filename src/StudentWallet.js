@@ -47,7 +47,6 @@ class StudentWallet extends Component {
     if (nextProps.AccountsInstance) {
       const idx = await nextProps.AccountsInstance.getStudentIdxByAddress();
       const [ minReq, raised, fundraisingStatus ] = await Promise.all([ this.getMinReq(idx), this.getRaised(idx), this.getFundraisingStatus(idx) ]);
-      console.log('minReq', minReq.c[0])
       this.setState({ minReq: minReq.c[0], raised: raised.c[0], fundraisingStatus })
     }
   }
