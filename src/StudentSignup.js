@@ -48,7 +48,7 @@ class StudentForm extends Component {
       <Container text>
         <Header as='h1'>Create a Student Account</Header>
 
-        <Form>
+        <Form onSubmit={this.handleSubmit}>
         <Form.Field>
         <label>Full Name</label>
         <input placeholder='First Name' onChange={(e) => this.setState({name: e.target.value})} />
