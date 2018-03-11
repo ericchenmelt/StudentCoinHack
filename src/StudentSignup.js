@@ -13,7 +13,7 @@ class StudentForm extends Component {
     const { AccountsInstance, accounts, history } = this.props;
   
     try {
-      const result = await AccountsInstance.addStudent(this.state.name, this.state.uni, 1 /*this.state.country*/, {from: accounts[0] });  
+      const result = await AccountsInstance.addStudent(this.state.name, this.state.uni, this.state.country, {from: accounts[0] });  
       history.push('/student/wallet')
     } catch (e) {
       console.log(e)

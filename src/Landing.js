@@ -12,6 +12,7 @@ const Section = styled.div`
 `;
 
 const BannerSection = styled(Section)`
+  background-color: lightsteelblue;
   background: url(${Grad}) no-repeat center center;
   background-size: cover;
   
@@ -55,7 +56,17 @@ const StyledBannerSection = () => <BannerSection>
 </BannerSection>
 
 class Landing extends Component {
+  willReRoute = async () => {
+    if(this.props.web3 && this.props.AccountsInstance) {
+      const result = await this.props.AccountsInstance.getStudentByAddress();
+      if(result !== "") {
+        this.props.history.push('/student/wallet')
+      }
+    }
+  }
+
   render() {
+    this.willReRoute()
     return (
       <div>
         <StyledBannerSection />
