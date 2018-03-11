@@ -55,3 +55,14 @@ Update:
 /funder/signup
 /funder/home
 ```
+
+## how to not die:
+
+```
+truffle develop
+
+> compile 
+> migrate --reset 
+> Accounts.deployed().then(function(instance){return instance.incrementStudent("hello world");}).then(console.log);
+> Accounts.deployed().then(function(instance){return instance.getStudentCount();}).then(console.log);
+```
