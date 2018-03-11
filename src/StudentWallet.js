@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import { Header, Image, Modal, Container, Button, Checkbox, Statistic, Form, Progress } from 'semantic-ui-react'
+import { Header, Image, Modal, Container, Button, Checkbox, Statistic, Form, Progress, Segment } from 'semantic-ui-react'
 import styled from 'styled-components';
 
 const StyledWallet = styled.div`
@@ -19,6 +19,12 @@ const StyledWallet = styled.div`
     h1.ui.header {
       font-size: 2rem;
       font-weight:400;
+    }
+
+    p.ui{
+    	font-size:2rem;
+    	font-weight:300;
+    	color:green;
     }
   }
 `;
@@ -68,39 +74,65 @@ class StudentWallet extends Component {
 
     return (
     	<StyledWallet>
-        <Container text>
-          <Header as='h1'>My Wallet</Header>
-          {!this.state.fundraisingStatus && this.state.raised && <p>funding is complete!</p> }
-          {this.state.fundraisingStatus && <p>funding in progress!</p> }
-          <Progress percent={percent} />
-          <Statistic>
-            <Statistic.Value>{this.state.minReq}</Statistic.Value>
-            <Statistic.Label>Your Goal:</Statistic.Label>
-            <Statistic.Value>{this.state.raised}</Statistic.Value>
-            <Statistic.Label>Amount Raised:</Statistic.Label>
-          </Statistic>
-          {!this.state.fundraisingStatus &&
-            <Modal open={this.state.modalOpen} trigger={
-              <Button onClick={() => this.setState({modalOpen: true})}>Start Fundraising</Button>
-            }>
-              <Modal.Header>New Fundraising</Modal.Header>
-              <Modal.Content>
-                <Modal.Description>
-                  <Form onSubmit={this.handleSubmit}>
-                    <Form.Field>
-                      <label>Goal amount (ETH)</label>
-                      <input placeholder='1000' type='number' onChange={(e) => this.setState({newGoal: e.target.value})} />
-                    </Form.Field>
-                    <Form.Field>
-                      <Checkbox label='I agree to the Terms and Conditions' />
-                    </Form.Field>
-                    <Button type='submit'>Submit</Button>
-                  </Form>
-                </Modal.Description>
-              </Modal.Content>
-            </Modal>
-          }
-        </Container>
+
+	      
+      <Container text>
+
+	        <Header as='h1'>My Wallet</Header>
+            
+            
+	        {!this.state.fundraisingStatus && this.state.raised && <p>funding is complete!</p> }
+            {this.state.fundraisingStatus && <p>Funding in Progress!</p> }
+	        
+
+	        {!this.state.fundraisingStatus && this.state.minReq && <div>
+
+	        	<Progress percent={percent} />
+
+
+	      		<Segment.Group horizontal>
+	               <Segment textAlign='center'>
+				       <Statistic>
+					    <Statistic.Value>{this.state.minReq}</Statistic.Value>
+					    <Statistic.Label>Your Goal</Statistic.Label>
+					   </Statistic>
+					</Segment>
+
+
+	                <Segment textAlign='center'>
+					   <Statistic>
+					    <Statistic.Value>{this.state.raised}</Statistic.Value>
+					    <Statistic.Label>Raised</Statistic.Label>
+					   </Statistic>
+					</Segment>
+				  
+			  	</Segment.Group> 
+			</div> }
+	    
+	     
+        {!this.state.fundraisingStatus &&
+          <Modal trigger={
+            <Button>Start Fundraising</Button>
+          }>
+            <Modal.Header>New Fundraising</Modal.Header>
+            <Modal.Content>
+              <Modal.Description>
+                <Form>
+                  <Form.Field>
+                    <label>Goal amount</label>
+                    <input placeholder='1000 ETH' />
+                  </Form.Field>
+                  <Form.Field>
+                    <Checkbox label='I agree to the Terms and Conditions' />
+                  </Form.Field>
+                  <Button type='submit'>Submit</Button>
+                </Form>
+              </Modal.Description>
+            </Modal.Content>
+          </Modal>
+        }
+
+      </Container>
       </StyledWallet>
     )
   }
