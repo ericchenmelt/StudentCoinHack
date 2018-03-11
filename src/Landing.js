@@ -5,12 +5,16 @@ import { Button, Container, Header } from 'semantic-ui-react'
 import styled from 'styled-components';
 import Grad from './images/grad.svg'
 
-const BannerSection = styled.div`
-  background: url(${Grad}) no-repeat center center;
-  background-size: cover;
+const Section = styled.div`
   height: 100%;
   min-height: 100vh;
   width: 100%;
+`;
+
+const BannerSection = styled(Section)`
+  background: url(${Grad}) no-repeat center center;
+  background-size: cover;
+  
 
   div.ui.text.container {
     padding-top: 10%;
@@ -26,6 +30,8 @@ const BannerSection = styled.div`
     }
 
     h2.ui.header {
+      margin-bottom: 30px;
+      margin-top: 0;
       font-size: 2rem;
     }
 
